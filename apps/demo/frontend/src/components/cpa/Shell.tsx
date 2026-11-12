@@ -138,6 +138,13 @@ export function CpaShell({ children }: { children: ReactNode }) {
         <ProcessRail onOpen={setStep} />
       </header>
 
+      <aside className="mx-auto mt-3 max-w-[1280px] px-4 sm:px-6" aria-label="계산 모형 안내">
+        <div className="rounded-xl border border-rule bg-sky-soft/40 px-3 py-2 text-[12px] leading-relaxed text-ink-2">
+          <b className="text-navy">Rust 데모 확장 모형</b> · 루트 Python v4와 가정·계산 기준이 다릅니다. 두 결과를 같은 기준의 수치로 직접 비교하지 마세요.{' '}
+          <a href="https://github.com/jujinho03/afpk-cpa-financial-planning-2026/blob/main/docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md" target="_blank" rel="noreferrer" className="font-medium text-sky underline underline-offset-2">모형 차이와 검증 범위</a>
+        </div>
+      </aside>
+
       {error && (
         <div className="mx-auto mt-4 max-w-[1280px] px-4 sm:px-6" role="alert">
           <div className="rounded-xl border border-caution/30 bg-caution-soft px-4 py-3 text-[13.5px] text-ink">

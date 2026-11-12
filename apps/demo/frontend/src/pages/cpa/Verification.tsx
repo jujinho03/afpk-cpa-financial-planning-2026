@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Bot, Calculator, ClipboardPaste, Download, FileSearch, Play, ShieldCheck, Trash2, UserCheck } from 'lucide-react'
 import { cn } from '@/utils/format'
 import { errorText } from '@/services/api/client'
-import { STATUS_META, cpaApi, emptyLog, normalizeVerdict, useAiLog, useCpa, type ExpLog, type ExpStatus, type RunLog, type Verdict } from '@/features/cpa/store'
+import { STATUS_META, cpaApi, emptyLog, normalizeVerdict, useAiLog, type ExpLog, type ExpStatus, type RunLog, type Verdict } from '@/features/cpa/store'
 import { evalClaim, useExperimentStatuses, type Claim, type ServerRun } from '@/features/cpa/verify'
 import { STEPS } from '@/features/cpa/process'
 import { STRATEGY_META, man, ym } from '@/features/cpa/meta'
@@ -39,7 +39,7 @@ export default function Verification() {
     if (!doc) return
     const payload = {
       exportedAt: new Date().toISOString(),
-      note: '가상 고객(합성 데이터) 사례의 AI 활용·검증 기록. 원출력은 편집하지 않았고, 계산 판정은 Rust 엔진 기본값 계산과의 대조, 최종 판정은 사람이 기록한 것만 포함한다.',
+      note: '가상 고객(합성 데이터) 사례의 인수 기록과 이 브라우저의 AI 활용·검증 기록. 서버 파일의 기록을 불러온 것은 이번 세션에서 API를 재실행한 결과가 아니다. 계산 판정은 Rust 데모 엔진 기준과의 대조이며 호출 출처 확인과 사람 판정은 별도다.',
       serverRunsNote: ver.note,
       systemPrompt: doc.systemPrompt,
       experiments: doc.experiments.map((e) => ({
@@ -51,6 +51,7 @@ export default function Verification() {
         computedStatus: ver.byExp[e.id]?.computed ? STATUS_META[ver.byExp[e.id].computed!].label : null,
         serverRuns: (ver.byExp[e.id]?.runs ?? []).map((r) => ({ ...r, claimResults: (r.claims ?? []).map((c) => ({ claim: c.text, ...evalClaim(c, ver.analysisFor(c)) })) })),
         human: logs[e.id] ?? emptyLog(),
+        humanAppliesToCurrentEvidence: ver.byExp[e.id]?.humanCurrent ?? false,
       })),
     }
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }))
@@ -66,7 +67,7 @@ export default function Verification() {
       <PageTitle
         eyebrow="4단계 · 설계안 검증 · AI 비판적 검증"
         title="AI 검증"
-        lead="AI의 답은 정답이 아니라 검증할 가설입니다. 실제 AI 원출력의 주장을 하나씩 떼어 Rust 엔진의 독립 계산·공식 자료와 대조하고, 최종 판정과 수정은 사람이 기록합니다."
+        lead="인수한 원출력 기록의 주장을 Rust 데모 엔진·공식 자료와 대조합니다. 기록을 불러온 것은 이번 세션의 API 재실행 결과가 아닙니다. 대조는 인수 기록용 기본 가정·주장별 변경값을 사용하며 고객 정보 편집과 별개입니다. 호출 출처 확인과 사람의 최종 판정·수정은 별도입니다."
         right={
           <Btn variant="line" onClick={exportAll} disabled={!doc}>
             <Download className="h-4 w-4" /> 기록 내보내기(JSON)
@@ -108,7 +109,7 @@ export default function Verification() {
                 </button>
               ))}
             </div>
-            {exp && <ExperimentPanel key={exp.id} doc={doc} exp={exp} serverRuns={ver.byExp[exp.id]?.runs ?? []} analysisFor={ver.analysisFor} status={ver.byExp[exp.id]?.status ?? 'notRun'} computed={ver.byExp[exp.id]?.computed ?? null} />}
+            {exp && <ExperimentPanel key={exp.id} doc={doc} exp={exp} serverRuns={ver.byExp[exp.id]?.runs ?? []} analysisFor={ver.analysisFor} status={ver.byExp[exp.id]?.status ?? 'notRun'} computed={ver.byExp[exp.id]?.computed ?? null} baseline={ver.base} context={ver.byExp[exp.id]?.context ?? null} humanCurrent={ver.byExp[exp.id]?.humanCurrent ?? false} />}
           </div>
         )}
       </section>
@@ -156,7 +157,7 @@ function ModeCard({ icon, title, body, prov }: { icon: React.ReactNode; title: s
   )
 }
 
-function ExperimentPanel({ doc, exp, serverRuns, analysisFor, status, computed }: { doc: ExperimentsDoc; exp: Experiment; serverRuns: ServerRun[]; analysisFor: (c: Claim) => Analysis | undefined; status: ExpStatus; computed: ExpStatus | null }) {
+function ExperimentPanel({ doc, exp, serverRuns, analysisFor, status, computed, baseline, context, humanCurrent }: { doc: ExperimentsDoc; exp: Experiment; serverRuns: ServerRun[]; analysisFor: (c: Claim) => Analysis | undefined; status: ExpStatus; computed: ExpStatus | null; baseline: Analysis | null; context: string | null; humanCurrent: boolean }) {
   const log = useAiLog((s) => s.logs[exp.id]) ?? emptyLog()
   const { addRun, removeRun, review } = useAiLog()
   const [prompt, setPrompt] = useState(exp.prompt.replace('{{clientBrief}}', doc.clientBrief))
@@ -307,12 +308,13 @@ function ExperimentPanel({ doc, exp, serverRuns, analysisFor, status, computed }
             </ul>
           )}
           <div className="mt-4 border-t border-rule pt-3">
-            <EngineEvidence id={exp.id} />
+            <EngineEvidence id={exp.id} a={baseline} />
           </div>
         </div>
       </div>
 
-      <Review log={log} disabled={serverRuns.length + log.runs.length === 0} onSave={(p) => review(exp.id, p)} />
+      {log.reviewedAt && !humanCurrent && <p role="status" className="rounded-lg bg-caution-soft p-3 text-[13px]">이전 사람 판정은 원출력·계산 근거가 달라졌거나 근거 연결이 없어 현재 결과에 적용하지 않습니다. 기존 기록은 보존되며 다시 검토해야 합니다.</p>}
+      <Review key={context ?? 'loading'} log={log} disabled={serverRuns.length + log.runs.length === 0 || !context} onSave={(p) => review(exp.id, { ...p, evidenceContext: context })} />
     </div>
   )
 }
@@ -438,26 +440,24 @@ function Review({ log, disabled, onSave }: { log: ExpLog; disabled: boolean; onS
 }
 
 // ── 엔진 증거: 'AI 가정'과 '검증된 가정'으로 엔진을 다시 실행해 비교 ──
-function useWhatIf(patch: Partial<CpaInputs> | null) {
-  const inputs = useCpa((s) => s.inputs)
-  const [res, setRes] = useState<Analysis | null>(null)
-  const key = JSON.stringify(patch)
+function useWhatIf(inputs: CpaInputs | null, patch: Partial<CpaInputs> | null) {
+  const [res, setRes] = useState<{ key: string; value: Analysis } | null>(null)
+  const key = JSON.stringify([inputs, patch])
   useEffect(() => {
     if (!inputs || !patch) return
     const ctl = new AbortController()
     const t = setTimeout(() => {
       cpaApi
         .analyze({ ...inputs, ...patch }, ctl.signal)
-        .then(setRes)
+        .then((value) => setRes({ key, value }))
         .catch(() => undefined)
     }, 200)
     return () => {
       clearTimeout(t)
       ctl.abort()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs, key])
-  return res
+  }, [inputs, patch, key])
+  return res?.key === key ? res.value : null
 }
 
 function TauCompare({ base, alt, label, strategies = ['A', 'D'] }: { base: Analysis; alt: Analysis | null; label: string; strategies?: Strategy[] }) {
@@ -466,7 +466,7 @@ function TauCompare({ base, alt, label, strategies = ['A', 'D'] }: { base: Analy
       <thead className="text-ink-3">
         <tr className="border-b border-rule">
           <th className="py-1.5 text-left font-normal">전략</th>
-          <th className="py-1.5 text-right font-normal">검증된 가정</th>
+          <th className="py-1.5 text-right font-normal">인수 기록 기준</th>
           <th className="py-1.5 text-right font-normal">{label}</th>
         </tr>
       </thead>
@@ -491,15 +491,14 @@ function TauCompare({ base, alt, label, strategies = ['A', 'D'] }: { base: Analy
   )
 }
 
-function EngineEvidence({ id }: { id: string }) {
-  const a = useCpa((s) => s.analysis)
+function EngineEvidence({ id, a }: { id: string; a: Analysis | null }) {
   const [amount, setAmount] = useState<number>(id === 'E4' ? 150_000 : 700_000)
   const patch = useMemo<Partial<CpaInputs> | null>(() => (id === 'E4' ? { otherDebtPayment: amount } : id === 'E5' ? { unverifiedInflow: amount } : null), [id, amount])
-  const alt = useWhatIf(patch)
+  const alt = useWhatIf(a?.inputs ?? null, patch)
   if (!a) return <Skel className="h-24" />
   const head = (
     <div className="mb-2 flex items-center gap-2 text-[13px] font-semibold text-navy">
-      엔진 대조(현재 가정) <Prov kind="engine" />
+      엔진 대조(인수 기록 기준 가정) <Prov kind="engine" />
     </div>
   )
   switch (id) {
@@ -553,7 +552,7 @@ function EngineEvidence({ id }: { id: string }) {
           <div className="mb-2 flex flex-wrap items-center gap-2 text-[12.5px] text-ink-2">
             {id === 'E4' ? 'AI가 넣은 학자금 월 상환액' : 'AI가 넣은 미확인 지원금(월)'}
             <WonInput value={amount} onChange={(v) => setAmount(v ?? 0)} className="w-[120px]" />
-            <Help>AI 원출력의 금액을 넣으면 그 가정이 결론을 얼마나 바꾸는지 엔진이 다시 계산합니다.</Help>
+            <Help>보조 탐색입니다. 금액을 바꾸면 인수 기록 기준에서 다시 계산하지만, 상단 주장별 대조표·사람 판정에는 적용하지 않습니다.</Help>
           </div>
           <TauCompare base={a} alt={alt} label={id === 'E4' ? 'AI 가정(월정액 상환)' : 'AI 가정(지원금 유입)'} />
           <p className="mt-2 text-[12px] text-ink-2">{id === 'E4' ? '없는 상환액을 넣으면 하한 도달이 앞당겨져 실제보다 비관적인 권고가 됩니다.' : '받지 못할 수 있는 돈을 넣으면 하한 도달이 늦춰져 실제보다 낙관적인 권고가 됩니다.'}</p>

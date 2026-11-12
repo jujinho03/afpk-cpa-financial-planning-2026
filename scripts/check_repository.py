@@ -39,8 +39,11 @@ def main():
                 re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----')]
     for name in paths:
         path = ROOT / name
-        if (path.name.startswith('.env') and path.name != '.env.example') or any(
-            part in {'node_modules', '.venv', '__pycache__', 'analysis'} for part in path.parts
+        relative_parts = Path(name).parts
+        if (path.name.startswith('.env') and path.name != '.env.example') or (
+            relative_parts[0] == 'analysis' or any(
+                part in {'node_modules', '.venv', '__pycache__'} for part in relative_parts
+            )
         ):
             errors.append('Forbidden tracked path: ' + name)
         if path.suffix.lower() in {'.pdf', '.png', '.jpg', '.zip'}:

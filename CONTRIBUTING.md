@@ -17,7 +17,7 @@ python scripts/check_repository.py
 
 ```text
 .github/               CI·Issue·PR 양식
-apps/demo/             기존 데모 소스 인수 대기
+apps/demo/             React/Rust 기존 데모와 별도 모형
 docs/bible/            제공받은 기획서 원본
 docs/assumptions/      가정 원장
 docs/references/       공식 출처·원본 해시
@@ -48,7 +48,9 @@ scripts/               재현·그림 생성·저장소 검사
 
 ## 기존 데모 인수
 
-현재 웹앱 기술 스택과 실행 명령은 미확인입니다. 설경민이 `feature/demo-import`의 `apps/demo/`에 원본 구조·README·lockfile·라이선스를 보존해 업로드한 뒤 확인합니다. 기존 Git 이력이 있다면 보존 방식을 먼저 협의합니다. 바이블의 목표를 실제 구현 기능으로 간주하지 않습니다. [상세 안내](apps/demo/README.md)
+원본 `import/afpk-demo`의 `bd5a625`를 이력과 함께 인수했습니다. 기술 스택은 React·TypeScript·Vite 및 Rust·Axum·SQLite입니다. 원본 README는 `docs/demo/original/README.bd5a625.txt`, 원본 해시는 `docs/references/DEMO_IMPORT_MANIFEST.json`에 보존합니다. [실행 안내](apps/demo/README.md)와 [정합성 차이](docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md)를 먼저 확인합니다.
+
+소스 동작을 수정할 때 원저작자의 화면·기능·금융 가정을 보존합니다. 새로운 금융 기준을 합의하지 않은 상태에서 Python 수치에 맞추지 않습니다. 외부 AI 호출과 영상·음성 생성은 이번 병합 검증에 포함하지 않습니다. CI는 frontend 린트·타입·빌드, Rust 단위/API·HTTP smoke, 루트 참조 검사를 모두 실행합니다. 기존 필수 검사 두 개는 데모 검사에도 의존하므로 데모 실패를 통과시키지 않습니다.
 
 ## 공개 저장소에 올리지 않는 자료
 

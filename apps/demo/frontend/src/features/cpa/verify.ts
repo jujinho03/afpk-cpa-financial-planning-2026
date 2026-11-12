@@ -5,6 +5,7 @@ import { request } from '@/services/api/client'
 import { cpaApi, normalizeVerdict, useAiLog, type ExpLog, type ExpStatus, type RunLog } from './store'
 import { PDF_BASELINE, man, ym } from './meta'
 import type { Analysis, CpaInputs, Strategy } from './types'
+import { evidenceContext, humanReviewIsCurrent } from './review-context'
 
 export type Claim = {
   id: string
@@ -52,11 +53,11 @@ export function computedStatus(results: ClaimResult[]): ExpStatus {
 }
 
 /** 최종 상태: 사람 판정 > 계산 상태 > 실행 여부 */
-export function finalStatus(log: ExpLog | undefined, runs: ServerRun[], computed: ExpStatus | null): ExpStatus {
+export function finalStatus(log: ExpLog | undefined, runs: ServerRun[], computed: ExpStatus | null, context: string | null): ExpStatus {
   const v = log ? normalizeVerdict(log.verdict) : 'unset'
   const hasRun = runs.length > 0 || (log?.runs.length ?? 0) > 0
   if (!hasRun) return 'notRun'
-  if (v !== 'unset') return v
+  if (v !== 'unset' && humanReviewIsCurrent(log, context)) return v
   return computed ?? 'review'
 }
 
@@ -96,12 +97,21 @@ export function useExperimentStatuses(ids: string[]) {
   const { runs, analysisFor, base, note, err } = useVerificationData()
   const logs = useAiLog((s) => s.logs)
   const byExp = (() => {
-    const out: Record<string, { status: ExpStatus; computed: ExpStatus | null; runs: ServerRun[] }> = {}
+    const out: Record<string, { status: ExpStatus; computed: ExpStatus | null; runs: ServerRun[]; context: string | null; humanCurrent: boolean }> = {}
     for (const id of ids) {
       const rs = (runs ?? []).filter((r) => r.experimentId === id)
       const results = rs.flatMap((r) => (r.claims ?? []).map((c) => evalClaim(c, analysisFor(c))))
       const computed = rs.length ? computedStatus(results) : null
-      out[id] = { status: finalStatus(logs[id], rs, computed), computed, runs: rs }
+      const allReady = base && runs !== null && rs.every((r) => (r.claims ?? []).every((c) => analysisFor(c) !== undefined))
+      const context = allReady ? evidenceContext({
+        profile: 'rust-demo-evidence-v1', runs: rs, localRuns: logs[id]?.runs ?? [], baseInputs: base.inputs,
+        checks: rs.flatMap((r) => (r.claims ?? []).map((c) => {
+          const a = analysisFor(c)
+          const p = a?.short.find((row) => row.strategy === c.strategy)
+          return { claim: c, result: evalClaim(c, a), inputs: a?.inputs, cash0: a?.inputs.cash0, tau: p?.tau, insolvent: p?.insolvent, row: p?.months.find((m) => m.month === c.month) }
+        })),
+      }) : null
+      out[id] = { status: finalStatus(logs[id], rs, computed, context), computed, runs: rs, context, humanCurrent: humanReviewIsCurrent(logs[id], context) }
     }
     return out
   })()

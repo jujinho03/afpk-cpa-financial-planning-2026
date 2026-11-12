@@ -40,8 +40,9 @@ async fn main() {
         }
     };
     let app = finova::api::routes::app(state);
-    let listener = tokio::net::TcpListener::bind(("0.0.0.0", port)).await.expect("bind port");
-    tracing::info!("listening on http://localhost:{port}");
+    // 로컬 데모는 인증 없는 편집/선택적 AI 호출 경로가 있으므로 외부 인터페이스에 노출하지 않는다.
+    let listener = tokio::net::TcpListener::bind(("127.0.0.1", port)).await.expect("bind loopback port");
+    tracing::info!("listening on http://127.0.0.1:{port} (local demo only)");
     axum::serve(listener, app)
         .with_graceful_shutdown(async {
             let _ = tokio::signal::ctrl_c().await;

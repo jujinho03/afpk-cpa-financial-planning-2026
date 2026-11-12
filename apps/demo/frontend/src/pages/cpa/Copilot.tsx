@@ -173,7 +173,7 @@ function AnswerCard({ r }: { r: Ask }) {
           <p className="text-[13.5px] leading-relaxed whitespace-pre-wrap text-ink">{r.ai.text}</p>
           <div className={cn('mt-2 flex items-center gap-1.5 text-[12px]', r.ai.unverifiedNumbers.length ? 'text-caution' : 'text-good')}>
             숫자 {r.ai.checkedNumbers}개를 엔진 값과 대조 ·{' '}
-            {r.ai.unverifiedNumbers.length ? `확인되지 않은 숫자 ${r.ai.unverifiedNumbers.join(', ')}` : '모두 엔진 계산값과 일치'}
+            {r.ai.unverifiedNumbers.length ? `확인되지 않은 숫자 ${r.ai.unverifiedNumbers.join(', ')}` : r.ai.checkedNumbers > 0 ? '대조한 숫자는 엔진 계산값과 일치' : '대조할 금액·비율이 없습니다'}
             <Help>AI 문장 속 금액·비율을 이번 계산의 엔진 결과·입력값과 대조합니다. 맞지 않는 숫자는 사실로 쓰지 마세요.</Help>
           </div>
         </div>
@@ -183,7 +183,7 @@ function AnswerCard({ r }: { r: Ask }) {
           <Bot className="mr-1 inline h-4 w-4 text-ink-3" />이 질문은 규칙 기반 답변에 없고 생성형 AI도 사용할 수 없어 답하지 않았습니다. 추천 질문을 이용해 주세요.
         </div>
       )}
-      {r.aiError && r.mode !== 'unsupported' && <div className="text-[12px] text-ink-3">생성형 AI는 호출하지 않았습니다: {r.aiError}</div>}
+      {r.aiError && r.mode !== 'unsupported' && <div className="text-[12px] text-ink-3">생성형 AI 답변을 제공하지 못했습니다: {r.aiError}</div>}
     </div>
   )
 }

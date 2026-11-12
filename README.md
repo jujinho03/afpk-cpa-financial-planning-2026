@@ -12,7 +12,7 @@ CPA 2차 유예생의 소득 공백을 **18개월 유동성 → 60개월 조건�
 
 **[심사위원용 3분 안내](docs/JUDGES_GUIDE.md) · [분석 결과 JSON](outputs/tables/model_summary.json) · [프로젝트 기획서 PDF](docs/bible/AFPK_CPA_아이디어_기획서.pdf) · [재현·기여 안내](CONTRIBUTING.md)**
 
-> AFPK 영 플래너 챌린지 2026 · B안 가상 고객 사례. 현재 공개본은 **계산을 재현할 수 있는 연구·협업 저장소**입니다. 외부 AI 검증 실험은 준비 중이며, 기존 데모는 원본 업로드 대기입니다. 이 저장소는 공식 DOCX/HWP 참가작을 대체하지 않습니다.
+> AFPK 영 플래너 챌린지 2026 · B안 가상 고객 사례. 현재 공개본은 **계산을 재현할 수 있는 연구·협업 저장소**입니다. 기존 Rust 데모와 제공된 AI 원출력 8건을 인수했습니다. 두 금융 모형의 가정이 다르며, AI 기록의 인간 최종 판정은 대기 중입니다. 이 저장소는 공식 DOCX/HWP 참가작을 대체하지 않습니다.
 
 ## 왜 이 문제인가
 
@@ -57,11 +57,46 @@ AI는 정보 누락·실패 시나리오·권고의 반례·고객 설명을 제
 
 | 현재 확보한 것 | 아직 확보하지 않은 것 |
 |---|---|
-| 12개 경로·720행 계산 결과와 회귀·경계조건 테스트 | E1~E6 실제 외부 AI 원출력·판정·수정 이력 |
-| 원본 파일 해시, 가정 원장, 알려진 결함 기록 | 법정 ICL 상환·실제 급여·채용기간의 현실성 검증 |
-| Linux·Windows CI와 재현 가능한 그림 | 기존 데모 소스·실행·빌드·AI 연결 검수 |
+| Python v4의 12개 경로·720행 계산 결과와 회귀·경계조건 테스트 | 인수한 AI 원출력의 인간 최종 판정·권고 수정 이력 |
+| 원본 파일 해시, 가정 원장, 알려진 결함, E1~E8 제공 원출력 8건·23개 주장 | 제공자 측 과거 호출의 독립 입증, 법정 ICL·급여·채용기간의 현실성 검증 |
+| 기존 React/Rust 데모 소스와 원본 커밋, 실행·빌드용 CI | 외부 LLM 재호출·유료 기능·외부 배포는 이번 검증 범위 밖 |
 
 [AI 실험 증거 구조](ai_evidence/README.md) · [알려진 모형 한계](docs/decisions/KNOWN_LIMITATIONS.md) · [데모 인수 상태](docs/demo/DEMO_INTAKE_REPORT.md)
+
+## 기존 웹 데모 실행
+
+설경민이 작성한 React·TypeScript·Vite 프런트엔드와 Rust·Axum·SQLite 백엔드를 원본 커밋 [`bd5a625`](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/commit/bd5a62518f07f4f738a1c1ec69d4c697d7345ccb)의 이력을 보존해 인수했습니다.
+
+**데모는 별도 Rust 확장 모형입니다.** 위의 Python v4 차트와 임금·급여월·안전자금·할인 정의가 다릅니다. 동일 조건의 독립 검산이나 동일 숫자를 보장하는 화면으로 해석하지 않습니다. [두 모형 비교](docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md)
+
+![실제 로컬 실행으로 확인한 CPA 데모 홈과 Rust 모형 안내](docs/demo/assets/cpa-home-verified.jpg)
+
+*2026-11-12 로컬 검수 화면. 위 Python 표와 다른 Rust 가정을 사용합니다. 입력 변경·재계산·복원과 8개 화면을 확인했으며, 외부 AI 호출 없이 실행했습니다.*
+
+| 실제 경로 | 기능 |
+|---|---|
+| `/` · `/client` | 고객 요약·가상 입력과 가정 편집 |
+| `/canvas` · `/copilot` | 규칙 기반 분석·상담, 선택적 서버 측 Gemini 연결 |
+| `/simulator` | Rust 전략·지연·민감도 계산 |
+| `/verification` | 제공된 AI 원출력·주장 대조와 인간 판단 기록 |
+| `/plan` · `/report` | 월별 점검·재계산·보고서 및 브라우저 인쇄 |
+
+검증 환경은 Node.js 22 LTS와 Rust stable이며, Windows에서는 MSVC C++ 도구가 필요합니다. 프런트의 `.nvmrc`는 22를 지정합니다. 외부 AI 키 없이 로컬 합성 데모를 실행할 수 있습니다.
+
+```sh
+# 터미널 1 — 작업 디렉터리를 backend로 유지
+cd apps/demo/backend
+cargo run --locked
+
+# 터미널 2 — 저장소 루트에서 시작
+cd apps/demo/frontend
+npm ci
+npm run dev -- --host 127.0.0.1
+```
+
+브라우저는 `http://127.0.0.1:5173`, API는 `http://127.0.0.1:8080`입니다. Windows MSVC 환경 설정은 [데모 실행 안내](apps/demo/README.md)를 참조합니다. 서버는 loopback에만 바인딩합니다. 사용자 인증이 완성된 공개 서비스가 아니므로 터널·외부 배포용으로 사용하지 않습니다.
+
+[실제 인수·실행 검증](docs/demo/DEMO_INTAKE_REPORT.md) · [AI 기록의 출처와 번호 매핑](ai_evidence/README.md)
 
 ## 직접 재현하기
 

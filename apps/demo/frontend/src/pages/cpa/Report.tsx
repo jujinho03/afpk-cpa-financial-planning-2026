@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Printer } from 'lucide-react'
 import { cn } from '@/utils/format'
-import { STATUS_META, useAiLog, useCpa } from '@/features/cpa/store'
+import { STATUS_META, useCpa } from '@/features/cpa/store'
 import { evalClaim, useExperimentStatuses } from '@/features/cpa/verify'
 import { STRATEGY_META, man, ym } from '@/features/cpa/meta'
 import type { Analysis } from '@/features/cpa/types'
@@ -59,11 +59,10 @@ function Body({ a }: { a: Analysis }) {
     B = P('B'),
     D = P('D')
   const ver = useExperimentStatuses(IDS)
-  const logs = useAiLog((s) => s.logs)
   const runs = ver.runs ?? []
   const results = runs.flatMap((r) => (r.claims ?? []).map((c) => ({ exp: r.experimentId, ...evalClaim(c, ver.analysisFor(c)) })))
   const ranked = a.long.strategies.filter((v) => v.rank != null).sort((x, y) => (x.rank ?? 9) - (y.rank ?? 9))
-  const humanCount = IDS.filter((id) => logs[id] && logs[id].verdict !== 'unset').length
+  const humanCount = IDS.filter((id) => ver.byExp[id]?.humanCurrent).length
 
   return (
     <article className="print-area space-y-4">
@@ -120,7 +119,7 @@ function Body({ a }: { a: Analysis }) {
       </Sec>
 
       <Sec n={4} title="AI 분석">
-        AI에게는 질문지·계산 코드·반론·설명문 초안을 맡기고, 모든 수치는 Rust 엔진으로 다시 계산했습니다. 비판적 검증을 위해 서버에서 Gemini를 실제로 호출해 {runs.length}건의 원출력을 편집 없이 보존했고({runs.map((r) => r.model).filter((v, k, s) => s.indexOf(v) === k).join(', ') || '—'}), 원출력에서 {results.length}개의 주장을 떼어 엔진 계산과 대조했습니다. AI 상담 화면의 기본 답변은 규칙 기반이며, 생성형 AI 답변은 요청 시에만 만들고 숫자를 엔진 값과 자동 대조합니다.
+        현재 보고서는 인수한 원출력 기록 {runs.length}건({runs.map((r) => r.model).filter((v, k, s) => s.indexOf(v) === k).join(', ') || '—'})에서 {results.length}개의 주장을 떼어 Rust 데모 엔진 계산과 대조합니다. 이 기록을 불러온 것은 이번 세션에서 API를 재실행한 결과가 아니며, 호출 출처 확인과 사람의 최종 판정은 별도입니다. AI 상담 화면의 기본 답변은 규칙 기반이며, 생성형 AI 답변은 요청 시에만 만들고 숫자를 엔진 값과 자동 대조합니다.
       </Sec>
 
       <Sec n={5} title="시나리오 비교">

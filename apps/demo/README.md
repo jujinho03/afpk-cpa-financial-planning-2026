@@ -1,242 +1,120 @@
-# 합격해도 끝나지 않는다 — CPA 수험생 소득 공백 재무설계 (AFPK 영 플래너 챌린지 2026)
+# CPA 소득 공백 재무설계 데모
 
-> **최종 아이디어 확정(2026-11-11).** 제출 사이트는 홈 `/` · 고객 정보 `/client` · AI 분석 `/canvas` · AI 상담 `/copilot` · 시뮬레이션 `/simulator` · AI 검증 `/verification` · 실행 계획 `/plan` · 보고서 `/report` 이며,
-> 계산 모델·기획서 수치 재계산·달라진 점은 [docs/CPA_FINAL_IDEA.md](docs/CPA_FINAL_IDEA.md)에 정리했다.
-> 이전 FINOVA 범용 워크스페이스(`/workspace`, 아이디어 설정 화면 포함)의 프론트엔드는 2026-11-11 팀 결정으로 삭제했다(git 기록에 남아 있음). 아래 설명 중 범용 워크스페이스 화면 부분은 더 이상 사이트에 없다.
+**합격해도 끝나지 않는다** — AFPK 영 플래너 챌린지 2026, B안 가상 고객, 3인 팀의 로컬 데모입니다. 설경민(`k0ng-min`)이 제공한 `import/afpk-demo` 커밋 `bd5a62518f07f4f738a1c1ec69d4c697d7345ccb`를 원본 구조로 인수했습니다.
 
-# FINOVA — AI 재무설계 워크스페이스
+> **모형 구분:** 이 앱은 별도 가정을 사용하는 **Rust 확장 모형**입니다. 저장소 루트의 Python v4와 동일 수식·동일 결과라고 주장하지 않습니다. 모든 고객·소득·확률·채용 일정은 합성 가정이며, 실제 취업·수익·법정 상환을 보장하지 않습니다.
+>
+> **검증 상태:** Python 17개, Rust 78개(단위56+API22), 로컬 HTTP 11개 그룹, 프런트 판정 문맥 테스트 3개 및 lint·typecheck가 통과했습니다. **최종 수정본 Vite 빌드도 Node.js 22.23.5에서 통과**했습니다. 외부 AI 호출·배포·영상 렌더는 이번 통합에서 실행하지 않았습니다.
 
-**제1회 전국 대학생 AI 재무설계 사례 콘테스트(AFPK 영 플래너 챌린지 2026)** 출품을 위해 대학생 4인 팀이 만드는 웹 애플리케이션입니다.
+[인수 보고](../../docs/demo/DEMO_INTAKE_REPORT.md) · [Python/바이블 차이](../../docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md) · [보안·증거 검토](../../docs/demo/SECURITY_AND_EVIDENCE_REVIEW.md) · [원본 README](../../docs/demo/original/README.bd5a625.txt)
 
-AI가 낸 재무설계 제안을 **Rust 계산 엔진이 독립적으로 다시 계산해 검증**하고, 최종 판단은 **사람이 사유와 함께 기록**하는 구조를 보여주는 것이 핵심입니다.
-표준 재무설계 6단계(관계 정립 → 목표·자료 수집 → 분석 → 설계안 제시 → 실행 → 점검)를 화면과 데이터 흐름으로 연결했습니다.
+## 화면과 구현
 
-> - 모든 고객은 **합성 데이터**이며 실제 인물·통계가 아닙니다.
-> - 미래 수치는 입력한 가정에 따른 **시뮬레이션**이며 확정된 결과나 투자 권유가 아닙니다.
-> - 최종 공모전 주제는 아직 정하지 않았습니다. 기본 활성 주제는 `공통 워크스페이스(주제 미확정)`이고, 5개 후보 주제는 관리자 화면에서 미리보기·검증 후 적용합니다.
-
-![홈 화면](docs/screenshots/home.png)
-
----
-
-## 목차
-
-1. [심사위원 3분 데모 동선](#심사위원-3분-데모-동선)
-2. [화면 구성](#화면-구성)
-3. [AI는 어디에 쓰이나 (정직한 구현 범위)](#ai는-어디에-쓰이나-정직한-구현-범위)
-4. [빠른 시작](#빠른-시작)
-5. [환경 변수](#환경-변수)
-6. [테스트와 품질 점검](#테스트와-품질-점검)
-7. [폴더 구조](#폴더-구조)
-8. [주제 전환 (Adaptive Idea Engine)](#주제-전환-adaptive-idea-engine)
-9. [알려진 제한 사항](#알려진-제한-사항)
-10. [문서](#문서)
-
----
-
-## 심사위원 3분 데모 동선
-
-홈에서 **「3분 데모 시작」** 을 누르면 화면 아래 안내 막대가 단계·볼 것·다음 이동을 알려줍니다.
-
-| 순서 | 화면 | 시간 | 확인할 것 |
-|---:|---|---:|---|
-| 1 | 고객 정보 | 30초 | 소득을 바꾸면 **저장 전에도** 계산 결과가 「저장값 → 편집값」으로 바뀜 |
-| 2 | AI 분석 캔버스 | 30초 | 「AI 제안」 노드 → AI 초안 주장과 검증 판정, 노드마다 출처 라벨 |
-| 3 | 미래 시뮬레이션 | 40초 | 시나리오 선택 → **핵심 결론**(기준안 대비 변화·가정) → 슬라이더로 재계산 |
-| 4 | AI 검증 | 40초 | AI 주장 vs Rust 독립 계산값 · 허용 오차 · 판정 기준 · **사람 판단 기록** |
-| 5 | 실행 계획 | 20초 | 실행 항목·기한·예상 금액·재점검 조건 |
-| 6 | 보고서 | 20초 | 섹션별 출처 표시, 인쇄 · PDF 저장(A4 여러 쪽) |
-
-홈 오른쪽 아래 **「이 고객의 다음 권장 단계」** 는 실제 데이터(미검토 검증 주장, 저장 시나리오 수, 실행 항목 착수 여부 등)로 계산됩니다.
-
----
-
-## 화면 구성
-
-| 경로 | 화면 | 핵심 기능 |
-|---|---|---|
-| `/` | 홈 | 순자산·KPI, 미래 순자산, 1년 현금흐름, 시나리오 비교, 목표 달성, 지금 확인할 위험, 재무설계 진행·다음 권장 단계 (데스크톱 한 화면) |
-| `/client` | 고객 정보 | 기본 정보 / 현금흐름 / 자산·부채 / 재무목표 / 계산 가정 탭, 저장 전 변경 목록과 계산 결과 비교 |
-| `/canvas` | AI 분석 캔버스 | React Flow 노드 그래프, 출처 라벨, 상세 패널(입력·가정·계산·AI 초안·검증), 근거 경로 재생 |
-| `/copilot` | AI 재무 상담 | 계산 근거로 답하는 질의응답, Gemini 호출 상태·전달 데이터 범위·실패 시 재시도 |
-| `/scenarios` | 미래 시뮬레이션 | 핵심 결론 → 시나리오 비교(경로·비교표) → 상세 근거 탭(현금흐름·달력·자산부채·목표·경고) |
-| `/verification` | AI 검증 | 주장 → 근거 → 독립 계산 → 허용 오차 → 판정 기준 → 다음 행동 → 사람 검토(검토자·시점·사유·수정 요구) |
-| `/actions` | 실행 계획 | 우선순위·목표 날짜·예상 금액·진행 상태·재점검 조건 |
-| `/report` | 보고서 | 9개 섹션 자동 조립, 섹션별 출처 배지, 브라우저 인쇄 기반 PDF |
-| `/studio` | 아이디어 설정(관리자) | 주제 입력·프리셋 선택 → 분석 → 생성 → 검증 → 미리보기 → 적용·되돌리기 |
-
-| 미래 시뮬레이션 | AI 검증 |
+| 경로 | 기능 |
 |---|---|
-| ![미래 시뮬레이션](docs/screenshots/scenarios.png) | ![AI 검증](docs/screenshots/verification.png) |
-| **AI 분석 캔버스** | **고객 정보** |
-| ![AI 분석 캔버스](docs/screenshots/canvas.png) | ![고객 정보](docs/screenshots/client.png) |
+| `/` | CPA 고객과 소득 공백의 기본 분석 |
+| `/client` | 가상 고객·생활비·지원·임금·일정·가정 입력 |
+| `/canvas` | 재무 판단의 흐름과 근거 표시 |
+| `/copilot` | 계산 근거의 규칙 답변, 선택적 서버 Gemini 응답 |
+| `/simulator` | A/B/C/D 경로·민감도·조건 변화 재계산 |
+| `/verification` | 제공 AI 원출력·수치 대조·사람 판단 구분 |
+| `/plan` | 잔액 점검·전환 규칙·실행 계획 |
+| `/report` | 현재 입력·Rust 계산·검토 상태를 정리하는 보고서 |
 
----
+`/ai`는 `/verification`으로 이동합니다. 원본 일반 FINOVA 문서의 `/scenarios`, `/actions`, `/studio`는 현재 CPA UI의 실제 경로가 아닙니다. 아래 구조·API와 화면 목록은 실제 소스를 기준으로 기록했습니다. 개별 화면의 브라우저 검수·최종 빌드는 [프런트 검증 기록](../../docs/demo/FRONTEND_VERIFICATION.md)을 확인합니다.
 
-## AI는 어디에 쓰이나 (정직한 구현 범위)
+## 기술 스택
 
-화면에서는 결과의 출처를 색이 아니라 **아이콘 + 글자 배지**로 구분합니다.
+- 프런트: React 18 · TypeScript · Vite 6 · Tailwind 4 · React Router · Zustand · Zod · Recharts · React Flow · Motion.
+- 백엔드: Rust · Axum · Tokio · SQLx(SQLite) · rust_decimal. `/api/cpa/*`에서 계산합니다.
+- 입력·사람 검토는 브라우저 저장소, 기존 범용 고객·주제 기능은 SQLite 저장을 사용합니다.
+- Gemini는 키가 구성된 경우 서버에서만 호출할 수 있습니다. 분석·캔버스·템플릿 보고서가 모두 생성형 AI 결과인 것은 아닙니다.
+- `video/`는 별도 Remotion 프로젝트이며 이번 통합의 필수 웹앱 실행에 필요하지 않습니다.
 
-| 배지 | 의미 | 쓰이는 곳 |
-|---|---|---|
-| AI 생성 문장 | 외부 LLM(Gemini)이 서버에서 작성한 문장 | **AI 재무 상담 답변 문장만** |
-| Rust 계산 | Rust 엔진이 입력값으로 결정적으로 계산한 값 | 모든 지표·시뮬레이션·독립 검증 |
-| 규칙 엔진 | 미리 정의한 임계값 규칙으로 판정(LLM 미호출) | 위험 탐지, 캔버스 분석, 에이전트 역할 |
-| AI 초안(예시) | 주제 구성에 **미리 작성된** AI 초안 주장(실시간 호출 아님) | AI 검증의 검증 대상 |
-| 사용자 입력 | 고객 정보에서 입력한 합성 데이터 | 고객·목표 |
-| 사람 판단 | 검토자가 기록한 승인·기각·수정 | AI 검증, 보고서 |
+## 로컬 실행
 
-- **Gemini 호출 경로:** 브라우저 → Rust 서버 → Gemini API. API 키는 서버 환경변수에만 있고 프론트엔드에서 LLM을 직접 호출하지 않습니다.
-- **LLM에 보내는 데이터:** 합성 고객의 이름·나이·직업·가족 상황·계산 가정, Rust 계산 지표·예측 요약·목표·경고, 규칙 엔진 초안 답변.
-- **답변 검증:** 답변 속 금액·비율을 서버가 계산값과 자동 대조하고, 맞지 않는 숫자는 빨간색으로 표시합니다. 호출에 실패하면 규칙 엔진 답변과 실패 사유를 보여주고 다시 시도할 수 있습니다.
-- **보고서 문장은 LLM이 쓰지 않습니다.** 템플릿 문구에 입력값·계산값·규칙 판정·사람 판단을 채워 조립합니다.
-- 검증 판정에서 「근거 부족」「검토 필요」는 **절대 성공으로 표시하지 않으며**, 사람 판단이 없는 주장은 보고서 권고 근거에서 제외됩니다.
-- 키가 없으면 전 기능이 규칙 엔진 + Rust 계산으로 동작하며, 화면에 「LLM 미호출」로 표시됩니다.
-
----
-
-## 빠른 시작
-
-### 필요 환경
-- Windows 10/11 (macOS·Linux도 가능하나 스크립트는 Windows 기준)
-- Node.js 20 이상
-- Rust stable (MSVC 툴체인) + Visual Studio C++ Build Tools
-
-### 개발 실행 (두 서버)
+권장 실행환경은 **Node.js 22 LTS**입니다. 최종 수정본은 Windows의 공식 Node.js 22.23.5 격리 환경에서 typecheck·Vite 빌드를 확인했습니다. Windows Node.js 24.10.0에서는 네이티브 비정상 종료(`-1073740791`)가 있었으므로 Node 24 이상을 검증된 환경으로 일반화하지 않습니다. Windows에서는 Rust stable MSVC와 Visual Studio C++ Build Tools가 필요합니다. 다음 명령은 저장소 루트에서 시작합니다.
 
 ```powershell
-# 1) 프론트엔드 의존성 설치
-cd frontend; npm install; cd ..
-
-# 2) 환경 변수 파일 준비(선택: Gemini 키를 넣을 때)
-copy .env.example .env
-
-# 3) 백엔드 실행 (포트 8080). link.exe 가 PATH 에 없어도 래퍼가 vcvars64 를 불러온다
-#    PowerShell/cmd 에서 실행할 것(Git Bash 는 /usr/bin/link 가 가로채 빌드 실패)
-scripts\development\cargo-msvc.cmd run
-
-# 4) 다른 터미널에서 프론트엔드 실행 (포트 5173, /api 는 8080 으로 프록시)
-cd frontend; npm run dev
-```
-
-브라우저에서 http://localhost:5173 을 엽니다. `scripts\development\dev.ps1` 로 두 서버를 한 번에 띄울 수도 있습니다.
-첫 실행 시 SQLite 파일(`backend/finova.db`)이 만들어지고 합성 고객이 자동으로 채워집니다.
-
-### 단일 서버(배포 형태)
-
-```powershell
-cd frontend; npm run build; cd ..
-scripts\development\cargo-msvc.cmd run --release   # frontend/dist 가 있으면 8080 에서 화면과 API 를 함께 제공
-```
-
-### 관리자(아이디어 설정) 접근
-개발 환경에서 `ADMIN_TOKEN` 을 비워 두면 토큰은 `finova-dev-admin` 입니다. **공개 배포 시 반드시 바꾸세요.**
-
----
-
-## 환경 변수
-
-`.env.example` 을 복사해 프로젝트 루트에 `.env` 로 둡니다. `.env` 는 git 에 올라가지 않습니다.
-
-| 변수 | 기본값 | 설명 |
-|---|---|---|
-| `FINOVA_ENV` | development | `production` 이면 `ADMIN_TOKEN` 미설정 시 관리자 기능 비활성화 |
-| `ADMIN_TOKEN` | (개발) `finova-dev-admin` | 아이디어 설정·주제 전환 보호 토큰 |
-| `PORT` | 8080 | API 포트 |
-| `DATABASE_URL` | `sqlite://finova.db?mode=rwc` | SQLite 파일(backend 폴더 기준) |
-| `FINOVA_CORS_ORIGINS` | localhost:5173 | 허용 출처(쉼표 구분) |
-| `GEMINI_API_KEY` | (없음) | 있으면 AI 재무 상담 답변을 Gemini 가 작성 |
-| `GEMINI_MODEL` | gemini-3.5-flash | 사용할 Gemini 모델 id |
-| `GEMINI_FALLBACK_MODEL` | gemini-flash-lite-latest | 주 모델이 혼잡(503)·한도(429)·시간 초과일 때 재시도할 모델. `none` 이면 사용 안 함 |
-| `ANTHROPIC_API_KEY` | (없음) | 감지만 하고 호출하지 않음 |
-
-**Gemini 연결:** https://aistudio.google.com/apikey 에서 키 발급 → `.env` 의 `GEMINI_API_KEY=` 뒤에 붙여넣기 → 백엔드 재실행.
-AI 재무 상담 상단이 「Gemini API 호출 사용 · 모델명」으로 바뀝니다. 키를 프론트엔드 코드나 `VITE_` 변수에 넣지 마세요.
-프로젝트 `.env` 의 `GEMINI_*` 값은 Windows 환경변수보다 우선합니다.
-
----
-
-## 테스트와 품질 점검
-
-```powershell
-scripts\development\cargo-msvc.cmd test        # Rust 단위 25 + API 통합 14
-cd frontend
-npm run lint                                   # ESLint 9 (typescript-eslint + react-hooks)
-npm run typecheck                              # TypeScript 타입 검사
-npm run build                                  # 프로덕션 빌드
+cd apps/demo/frontend
+npm ci
+npm run lint
+npm run typecheck
+npm test
 cd ..
-powershell -File scripts\validation\smoke.ps1  # 실행 중인 서버에 API 스모크 테스트
 ```
 
-마지막 점검(2026-11-10): Rust 테스트 39개 통과, lint 0건, 타입 검사·빌드 성공, 스모크 6/6, `npm audit` 0건, `cargo audit` 1건(아래 제한 사항).
-브라우저 QA — 9개 화면 × 데스크톱(1440)·태블릿(820)·모바일(390): 콘솔 오류 0, 가로 넘침 0, 모든 차트에 스크린리더용 대체 텍스트.
-홈은 1366×768·1536×864·1920×1080에서 스크롤 없이 한 화면. 보고서 PDF는 A4 3쪽으로 9개 섹션이 모두 출력됨.
-사람 판단 저장 → 새로고침 후 유지는 별도 임시 DB로 확인했습니다. 자세한 항목과 미실행 항목은 [`docs/TEST_CHECKLIST.md`](docs/TEST_CHECKLIST.md).
+서버는 **키 없는 합성 데이터 로컬 환경**에서 시작합니다. `.env`는 기본 실행에 필요하지 않습니다. 기존 환경변수·`.env`의 Gemini 키를 의도 없이 사용하지 않도록 확인하고, 이번처럼 외부 AI 없이 검사할 때는 키가 구성되지 않은 별도 환경을 사용합니다.
 
----
+첫 터미널(현재 위치 `apps/demo`):
 
-## 폴더 구조
-
-```text
-├── frontend/          React 18 + TypeScript + Vite + Tailwind v4 + React Flow + Recharts + Motion + Zustand + Zod
-│   └── src/
-│       ├── pages/         9개 화면(Dashboard, ClientProfile, ReasoningCanvas, ScenarioLab, AICopilot,
-│       │                  VerificationLab, ActionPlanner, ReportStudio, IdeaConfigurationStudio)
-│       ├── components/    ui(디자인 시스템·출처 배지·골격 로딩), charts, canvas, financial, layout(데모 안내)
-│       ├── features/      journey(데모 동선·진행 상태), verification, topics, clients
-│       ├── services/api/  Zod 스키마로 응답을 검증하는 API 클라이언트
-│       └── styles/        "Mist" 디자인 토큰, 인쇄 CSS
-├── backend/           Rust + Axum + Tokio + SQLx(SQLite) + rust_decimal
-│   └── src/           api(라우트·핸들러·미들웨어), finance(현금흐름·자산·부채·예측·검증),
-│                      services(분석·상담·검증·주제), integrations/ai(Gemini), domain, repositories
-├── ai/                에이전트 레지스트리·프롬프트·스키마·정책·평가 케이스(백엔드가 로드)
-├── topics/            공통 규칙 + 5개 후보 주제 프리셋(각 JSON 구성) + 생성 주제
-├── data/              합성 고객·시나리오·목표 템플릿
-├── docs/              계획·요구사항·아키텍처·API·재무 가정·AI 검증·아이디어 엔진·테스트 문서, screenshots/
-├── scripts/           Windows 빌드 래퍼(cargo-msvc.cmd), 개발 실행, 검증 스크립트
-├── CLAUDE.MD          프로젝트 총괄 지시서
-└── DESIGN.MD          UI/UX 개선 요구사항(이번 개선의 기준)
+```powershell
+scripts\development\cargo-msvc.cmd run --locked
 ```
 
-계산은 모두 Rust 엔진이 담당하고 프론트엔드는 표시만 합니다. 금액은 원 단위 정수, 반올림 규칙은 [`docs/FINANCIAL_ASSUMPTIONS.md`](docs/FINANCIAL_ASSUMPTIONS.md)에 있습니다.
+다른 터미널(저장소 루트):
 
----
+```powershell
+cd apps/demo/frontend
+$env:FINOVA_API = 'http://127.0.0.1:8080'
+npm run dev -- --host 127.0.0.1 --strictPort
+```
 
-## 주제 전환 (Adaptive Idea Engine)
+브라우저: `http://127.0.0.1:5173`. API: `http://127.0.0.1:8080/api/health`. 개발 프런트가 `/api`를 Rust로 프록시합니다. 백엔드는 통합 시 loopback으로 제한했습니다. 초기 SQLite 파일은 합성 데이터를 담고 Git에서 제외합니다. 외부 배포·터널을 열지 않습니다.
 
-5개 후보 주제가 프리셋으로 들어 있습니다: 약속의 방화벽 · 가계·사업 전염 방화벽 · 돌봄 시작 72시간 · 목표 반증 인터뷰 · AI 재무설계 심사법정.
+백엔드 Rust 실행환경이 이미 구성됐다면 `backend`에서 `cargo run --locked`도 사용할 수 있습니다. Windows 래퍼는 MSVC linker 환경을 잡고 backend 폴더로 이동합니다. 이번 검증에서 사용한 개인 도구 경로·임시 DB·키는 저장소에 포함하지 않습니다.
 
-1. `/studio` 에서 관리자 토큰으로 로그인
-2. 프리셋을 고르거나 아이디어명·설명을 입력 → 분석 → 구성 생성
-3. 스키마·계산 가능 여부·검증 규칙을 **검증** → **미리보기**
-4. 승인하면 활성 주제로 전환(이전 버전은 보관, **되돌리기** 가능). 고객 데이터는 유지됩니다
+## 검사 명령
 
-런타임에서는 검증된 스키마와 이미 구현된 모듈만 조합하며, LLM이 만든 코드를 실행하지 않습니다. 세금·연금·보험·주택금융 규정처럼 엔진에 없는 계산은 「Claude Code 개발 필요」로 표시됩니다.
+저장소 루트:
 
----
+```powershell
+python -m unittest discover -s tests -v
+python scripts/reproduce.py
+python scripts/render_figures.py
+python scripts/check_repository.py
+python scripts/smoke_demo.py --base-url http://127.0.0.1:8080
+```
 
-## 알려진 제한 사항
+Rust(위치 `apps/demo`):
 
-- AI 재무 상담 외의 에이전트(분석·검증·보고서)는 규칙 엔진입니다.
-- AI 검증에서 직접 등록한 주장 문장은 브라우저에만 보관됩니다(사람 판단 기록은 서버 SQLite에 저장).
-- 외부 배포는 하지 않았습니다(공개 URL 없음).
-- `cargo audit` 에서 `libsqlite3-sys`(SQLite C 라이브러리) 중간 등급 권고 1건이 남아 있습니다. sqlx 가 수정 버전을 아직 지원하지 않아 올릴 수 없으며, 판단 근거는 테스트 체크리스트에 적었습니다. `npm audit` 은 0건입니다.
-- 실제 프린터 출력·실제 모바일 기기는 검증하지 않았습니다(헤드리스 브라우저 PDF·모바일 폭으로 확인).
-- 개선 전 화면 스크린샷은 남아 있지 않습니다.
+```powershell
+scripts\development\cargo-msvc.cmd test --locked
+```
 
----
+프런트(위치 `apps/demo/frontend`):
 
-## 문서
+```powershell
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
 
-| 문서 | 내용 |
-|---|---|
-| [PROJECT_PLAN](docs/PROJECT_PLAN.md) | 배경·목적·범위·일정·완료 기준 |
-| [REQUIREMENTS](docs/REQUIREMENTS.md) | 화면·기능 요구사항, 사용자 흐름 |
-| [ARCHITECTURE](docs/ARCHITECTURE.md) | 시스템 구조·책임·데이터 흐름 |
-| [TOPIC_MODULES](docs/TOPIC_MODULES.md) | 5개 후보 주제 정의와 전환 방법 |
-| [DESIGN_REFERENCES](docs/DESIGN_REFERENCES.md) | 레퍼런스 분석, 디자인 시스템 |
-| [API_SPEC](docs/API_SPEC.md) | 엔드포인트·요청/응답·오류 코드 |
-| [FINANCIAL_ASSUMPTIONS](docs/FINANCIAL_ASSUMPTIONS.md) | 계산식·가정·반올림 |
-| [AI_VALIDATION](docs/AI_VALIDATION.md) | AI 분석 구조·출력 검증·인간 검토 |
-| [ADAPTIVE_IDEA_ENGINE](docs/ADAPTIVE_IDEA_ENGINE.md) | 아이디어 엔진 파이프라인·제한 |
-| [TEST_CHECKLIST](docs/TEST_CHECKLIST.md) | 테스트 결과와 미실행 항목 |
+최종 수정본의 typecheck와 Vite 빌드는 Node.js 22.23.5에서 통과했습니다(2,495개 모듈). 소스·의존성을 바꾸지 않고 Node 실행환경을 분리해 확인했습니다. 브라우저에서는 생활비 120→150 변경에 따라 홈 A 경로의 하한 위반 월 10월→8월·말잔액 -595→-1,135가 바뀌고 기본값이 복원되는 것을 확인했습니다. 전체 화면 검수 결과는 별도 검증 기록을 확인합니다. `smoke_demo.py`는 loopback 주소만 받고 활성 AI 키가 없음을 먼저 검사합니다. 테스트 통과는 금융 현실 타당성이나 독립 인간 승인이 아닙니다.
+
+## AI 기록의 출처
+
+[제공 JSON](ai/evaluations/cpa_experiment_runs.json)에 E1~E8 **8개 run·23개 주장**과 시스템 프롬프트·입력·원출력·모델·시각·AI 1차 의견이 들어 있습니다. 이번에 이 자료를 받은 상태는 **IMPORTED_UNREVIEWED**입니다. 실제 제공자 호출 이력을 독립 확인하거나 외부 API를 재호출한 것이 아니며, AI 1차 의견은 사람의 최종 판정이 아닙니다.
+
+바이블과 데모의 E5/E6 질문은 다릅니다. [루트 AI 증거 인덱스](../../ai_evidence/README.md)에 대응 관계와 남은 사람 검토·권고 수정 기준을 기록했습니다. 입력·출력 문맥이 바뀌면 과거 판단을 현재 검증 결과로 그대로 재사용하지 않도록 판정 문맥 검사도 추가했습니다.
+
+## 금융 모형의 차이
+
+루트 Python은 시점별 안전자금 420→375→360, 일반직/CPA 첫 급여 230/290, 임금 성장과 초기 현금을 포함한 할인 순현금흐름을 사용합니다. Rust 데모는 고정 안전자금 360, 임금 270/320/410, 다른 취업 시점과 잔액 기반 D 전환, 초기 현금을 제외한 할인 지표를 사용합니다. 기본 가중치도 다릅니다.
+
+단위는 앱/Rust가 **원**, 루트 Python 표는 **만원**입니다. 두 결과를 숫자만 직접 비교하지 않습니다. 상세 입력·수식 차이는 [차이 분석](../../docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md)을 참조합니다. 이번 통합에서 수치를 맞추기 위해 금융 계산을 변경하지 않았습니다. ICL 보조 계산은 실제 통지·이자·기납부를 모두 반영한 확정 의무상환 계산이 아닙니다.
+
+## 원본 보존과 알려진 경계
+
+- [원본 매니페스트](../../docs/references/DEMO_IMPORT_MANIFEST.json) 242개 경로·해시와 업로드 커밋을 보존합니다. 옛 README는 별도 보관했습니다.
+- 필수 프롬프트 3개는 ignore로 업로드에서 빠졌으므로 통합 자료로 새로 보완했습니다. 원저작자 파일과 동일한 바이트라고 주장하지 않습니다.
+- 개발용 기본 관리자 토큰·인증 없는 편집/API 경로가 있으므로 합성 데이터 loopback 데모 범위를 유지합니다. 운영 공개에 필요한 인증·비용 통제는 별도 설계가 필요합니다.
+- 실제 키·토큰·고객 개인정보·서명 서류를 올리지 않습니다. `.env.example`에는 변수 이름과 빈/예제 값만 둡니다.
+- 기존 PNG는 이전 FINOVA 화면이고, 영상 스냅샷·내레이션도 현재 Python 결과의 독립 증거가 아닙니다. 새 화면 검수와 구분합니다.
+- Pretendard·Outfit의 OFL 고지는 [글꼴 안내](video/public/fonts/FONTS.md)에 연결했습니다. 프로젝트 전체에 새 오픈소스 라이선스를 임의 부여하지 않았습니다.
+- 외부 유료 호출, 음성 재생성, 영상 렌더, 서비스 배포, 공식 참가작 자동 완성은 이번 인수에서 수행하지 않았습니다.
+
+## 팀과 후속 검토
+
+주진호(`jujinho03`)는 고객 가정·재무 판단·본문, 설경민(`k0ng-min`)은 원본 데모·AI 증거·기술서, 박동찬(`feeljis131`)은 통합·실행환경·테스트·CI를 담당합니다. 자동 검사와 코드 검토를 팀원의 독립 인간 승인으로 표기하지 않습니다. 통합 PR은 실제 필수 CI와 검수 기록을 제공하며, 최종 모형 기준 결정과 AI 기록의 인간 판정은 후속 과제입니다.

@@ -126,14 +126,15 @@ export function changedKeys(i: CpaInputs | null, d: CpaInputs | null): (keyof Cp
 // ── AI 실험 기록 ──
 export type Verdict = 'unset' | 'match' | 'review' | 'insufficient' | 'error' | 'fixed'
 export type RunLog = RunResult & { source: 'server' | 'manual'; tool: string; id: string }
-export type ExpLog = { runs: RunLog[]; verdict: Verdict; reason: string; correction: string; reviewer: string; reviewedAt: string | null }
+type ReviewRecord = { verdict: Verdict; reason: string; correction: string; reviewer: string; reviewedAt: string | null; evidenceContext?: string | null }
+export type ExpLog = ReviewRecord & { runs: RunLog[]; reviewHistory?: ReviewRecord[] }
 export const emptyLog = (): ExpLog => ({ runs: [], verdict: 'unset', reason: '', correction: '', reviewer: '', reviewedAt: null })
 
 type LogState = {
   logs: Record<string, ExpLog>
   addRun: (exp: string, r: RunLog) => void
   removeRun: (exp: string, id: string) => void
-  review: (exp: string, patch: Partial<Pick<ExpLog, 'verdict' | 'reason' | 'correction' | 'reviewer'>>) => void
+  review: (exp: string, patch: Partial<Pick<ExpLog, 'verdict' | 'reason' | 'correction' | 'reviewer' | 'evidenceContext'>>) => void
   clear: () => void
 }
 
@@ -153,7 +154,12 @@ export const useAiLog = create<LogState>((set, get) => ({
   },
   review: (exp, patch) => {
     const cur = get().logs[exp] ?? emptyLog()
-    const logs = { ...get().logs, [exp]: { ...cur, ...patch, reviewedAt: new Date().toISOString() } }
+    const history = [...(cur.reviewHistory ?? [])]
+    if (cur.verdict !== 'unset') {
+      const { verdict, reason, correction, reviewer, reviewedAt, evidenceContext } = cur
+      history.push({ verdict, reason, correction, reviewer, reviewedAt, evidenceContext })
+    }
+    const logs = { ...get().logs, [exp]: { ...cur, ...patch, reviewHistory: history, reviewedAt: new Date().toISOString() } }
     save(LOG_KEY, logs)
     set({ logs })
   },
