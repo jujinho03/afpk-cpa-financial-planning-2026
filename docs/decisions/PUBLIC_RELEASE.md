@@ -34,4 +34,17 @@
 
 ## 원격 적용 상태
 
-공개 전환·About 소개·주제 태그 및 기존에 승인된 main 보호 규칙을 준비했습니다. 실제 적용 결과는 API 확인 후 아래에 기록합니다. 최신 CI는 해당 커밋의 Actions 결과로 확인합니다.
+| 항목 | 실제 확인 결과 |
+|---|---|
+| Public 전환 | PATCH 성공(200), 인증 없는 GET에서 `private: false` 확인 |
+| 기본 브랜치 | `main` |
+| 심사위원용 개편 | [PR #6](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/pull/6) 병합, 기준 커밋 `62251a9632efbdd661a9a0d0788d659ee12d939c` |
+| PR 검증 | [PR CI](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/actions/runs/43181239724)와 [브랜치 CI](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/actions/runs/43181152576) 모두 success, 15개 테스트 |
+| About 소개 | 고객의 소득 공백·18개월 유동성·60개월 조건부 가치 중심의 한국어 소개 반영 |
+| 주제 태그 | afpk, financial-planning, cash-flow, liquidity-risk, scenario-analysis, explainable-ai, python, reproducible-research, cpa |
+| 익명 접근 | 인증 없이 README와 SVG 3개를 각각 GET해 모두 200 확인 |
+| main 보호 | 공개 전환 직후 일시 잠금(403) 이후 재시도 성공(200). PR 승인 1명, 최신 기준과 두 OS CI 통과 요구, force push·브랜치 삭제 불허 |
+
+보호 규칙의 `enforce_admins`는 기존 승인 범위대로 false입니다. **소유자의 관리자 예외는 유지**되므로 누구도 우회할 수 없는 절대 보호라고 표현하지 않습니다. 이번 사용자 요청의 문서 개편은 자동 검토·CI 후 소유자 요청 범위에서 병합했으며, 이를 독립 인간 리뷰 승인이라고 주장하지 않습니다.
+
+금융 수식·기존 JSON/CSV·원본 바이블·vendor 코드의 변경은 0바이트입니다. 공개는 웹앱 배포나 실제 AI 실험 완료를 뜻하지 않습니다. 최신 커밋의 CI는 Actions에서 해당 SHA로 확인합니다.
