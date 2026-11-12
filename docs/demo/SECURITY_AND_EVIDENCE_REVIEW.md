@@ -27,6 +27,7 @@
 | S06 | 바이블의 E5/E6와 데모의 E5/E6는 같은 ID지만 질문이 다름 | ID만으로 실험을 합치지 않음. 아래 매핑 및 루트 증거 인덱스 참조 |
 | S07 | 원본 영상 폰트에서 Outfit은 출처·OFL 표기만 있고 전문 누락 | **보완 완료:** Google Fonts 공식 저장소의 Outfit 저작권·SIL OFL 1.1 전문을 `video/public/fonts/OUTFIT-LICENSE.txt`에 추가하고 FONTS.md에서 연결. Pretendard 고지는 유지. 프로젝트 전체에 새 라이선스를 임의 부여하지 않음 |
 | S08 | 원본 README에 4인 팀·주제 미확정·과거 라우트·과거 테스트 39개 등 일반 FINOVA 기록이 섞임 | 원본의 과거 주장을 현재 프로젝트 완료 상태로 복사하지 않음. 통합 안내에서 실제 CPA 3인 프로젝트·현재 경로·새 실행 결과를 별도 명시 |
+| S09 | Linux의 `Path::components`는 Windows `C:/x.md`를 일반 상대 경로로 처리 | 첫 PR CI에서 기존 거부 테스트 실패. 프롬프트 레지스트리 경로를 portable slash 형식으로 제한하고 콜론·역슬래시·NUL을 명시 거부. 기존 테스트에 drive-relative·UNC·역슬래시 탈출·루트 경로 경계 추가 |
 
 S01과 S02의 코드 보완은 통합 담당자가 수행합니다. 이 보고서는 소스에서 보완 상태를 확인한 범위만 기술하며, 로컬 실행 성공을 대신하지 않습니다. S07의 Outfit 저작권·OFL 전문 추가와 FONTS.md 연결은 파일에서 확인했습니다. [Outfit 라이선스 전문](../../apps/demo/video/public/fonts/OUTFIT-LICENSE.txt).
 

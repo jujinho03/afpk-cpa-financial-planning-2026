@@ -62,7 +62,12 @@ pub struct AiRegistry {
 /// ai/ 하위의 상대 경로만 허용(경로 탈출 방지)
 fn safe_rel(p: &str) -> bool {
     let path = Path::new(p);
-    !p.is_empty() && path.components().all(|c| matches!(c, Component::Normal(_))) && p.ends_with(".md")
+    // Registry paths use portable forward slashes. Unix does not recognize a
+    // Windows drive prefix or backslash traversal as special path components.
+    !p.is_empty()
+        && !p.chars().any(|c| matches!(c, ':' | '\\' | '\0'))
+        && path.components().all(|c| matches!(c, Component::Normal(_)))
+        && p.ends_with(".md")
 }
 
 impl AiRegistry {
@@ -131,6 +136,11 @@ mod tests {
         assert!(safe_rel("prompts/system/base.md"));
         assert!(!safe_rel("../secrets.md"));
         assert!(!safe_rel("C:/x.md"));
+        assert!(!safe_rel("C:x.md"));
+        assert!(!safe_rel("..\\secrets.md"));
+        assert!(!safe_rel("\\\\server\\share\\x.md"));
+        assert!(!safe_rel("/x.md"));
+        assert!(!safe_rel(""));
         assert!(!safe_rel("prompts/x.json"));
     }
 }
