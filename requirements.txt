@@ -1,0 +1,4 @@
+# Reference calculation, reproduction CLI and unittest suite use Python stdlib only.
+# The supplied model's unused NumPy import was removed in the packaged copy.
+# Historical PDF generation is not part of this runtime; its dependencies and fonts
+# must be handled separately if that legacy builder is reused.

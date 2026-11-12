@@ -1,0 +1,34 @@
+{
+  "received_date": "2026-11-12",
+  "original_zip": {
+    "filename": "AFPK_CPA_v4_9EED84_86ECA4.zip",
+    "sha256": "f7494774938497895ea27c5deac5c5ba5e0999e0b7e48f18f8375c799d2118f5"
+  },
+  "files": [
+    {
+      "path": "docs/bible/AFPK_CPA_아이디어_기획서.pdf",
+      "source": "user-provided original",
+      "sha256": "2dfbfd10e9ab1d025523543693cf3bc352a8cd8776f76c6e03efd30ea77064cd"
+    },
+    {
+      "path": "docs/bible/AFPK_CPA_아이디어_기획서.md",
+      "source": "user-provided original",
+      "sha256": "c9f5f17a7344953e90af8f08f34e0f044d45c7853eeea6cf4584c267d8cafa9d"
+    },
+    {
+      "path": "vendor/v4/build_v4.py",
+      "source": "user-provided v4 ZIP entry",
+      "sha256": "57729bfb885256ff59fb4f94bd83433652cc2c6ce0404537f3185212f3e5826b"
+    },
+    {
+      "path": "vendor/v4/model_v4.py",
+      "source": "user-provided v4 ZIP entry",
+      "sha256": "e6495a89699a824da22a1f9c0d8180cc557bbad5ed537d46a75428e494ab822c"
+    },
+    {
+      "path": "vendor/v4/README.txt",
+      "source": "user-provided v4 ZIP entry",
+      "sha256": "5b3daa740217a05bb19fcd9375c25eb16a1d99622eac6bb00c5143105acb326c"
+    }
+  ]
+}

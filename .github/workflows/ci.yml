@@ -1,0 +1,35 @@
+name: Reference model checks
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reference-model:
+    name: reference-model (${{ matrix.os }}, py${{ matrix.python }})
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Repository and provenance check
+        run: python scripts/check_repository.py
+      - name: Reference regression and boundary checks
+        run: python -m unittest discover -s tests -v
+      - name: Reproduce synthetic tables
+        run: python scripts/reproduce.py
+      - name: Verify committed tables are reproducible
+        run: git diff --exit-code -- outputs/tables/model_summary.json outputs/tables/monthly_cashflows.csv
+
+# Demo build/AI calls are intentionally not invented before source intake.

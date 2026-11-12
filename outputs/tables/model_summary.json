@@ -1,0 +1,152 @@
+{
+  "model": "supplied v4; formulas and assumptions unchanged",
+  "status": "synthetic assumptions; not a personal outcome prediction",
+  "amount_unit": "10,000 KRW",
+  "period_start": "2026-12",
+  "period_end": "2031-11",
+  "short_horizon_months": 18,
+  "long_horizon_months": 60,
+  "initial_cash": 1400.0,
+  "weights": {
+    "p": 0.6,
+    "q": 0.7,
+    "delta_B": 0.1
+  },
+  "annual_discount_rate": 0.05,
+  "weighted_discounted_cashflow_60": {
+    "A": 5259.216,
+    "B": 6062.21,
+    "C": 6716.7,
+    "D": 5853.492
+  },
+  "scenarios": [
+    {
+      "plan": "A",
+      "outcome": "P",
+      "cash_18": 895.0,
+      "minimum_safety_margin_18": -315.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 7235.6,
+      "cash_60": 8368.5
+    },
+    {
+      "plan": "A",
+      "outcome": "U",
+      "cash_18": -555.0,
+      "minimum_safety_margin_18": -915.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": "2028-01",
+      "discounted_cashflow_60": 3184.8,
+      "cash_60": 3743.8
+    },
+    {
+      "plan": "A",
+      "outcome": "F",
+      "cash_18": 365.0,
+      "minimum_safety_margin_18": -435.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": "2028-01",
+      "discounted_cashflow_60": 4117.5,
+      "cash_60": 4749.2
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "cash_18": 1775.0,
+      "minimum_safety_margin_18": 565.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 8087.6,
+      "cash_60": 9248.5
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "cash_18": 1025.0,
+      "minimum_safety_margin_18": 445.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 4727.0,
+      "cash_60": 5366.5
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "cash_18": 1325.0,
+      "minimum_safety_margin_18": 525.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 5045.0,
+      "cash_60": 5709.2
+    },
+    {
+      "plan": "C",
+      "outcome": "P",
+      "cash_18": 2833.8,
+      "minimum_safety_margin_18": 710.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 6716.7,
+      "cash_60": 7477.7
+    },
+    {
+      "plan": "C",
+      "outcome": "U",
+      "cash_18": 2833.8,
+      "minimum_safety_margin_18": 710.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 6716.7,
+      "cash_60": 7477.7
+    },
+    {
+      "plan": "C",
+      "outcome": "F",
+      "cash_18": 2833.8,
+      "minimum_safety_margin_18": 710.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 6716.7,
+      "cash_60": 7477.7
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "cash_18": 1295.0,
+      "minimum_safety_margin_18": 85.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 7618.2,
+      "cash_60": 8768.5
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "cash_18": 845.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 4575.6,
+      "cash_60": 5229.2
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "cash_18": 845.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null,
+      "discounted_cashflow_60": 4575.6,
+      "cash_60": 5229.2
+    }
+  ],
+  "limitations": [
+    "Weights and salaries are hypothetical, not estimated personal probabilities or verified income.",
+    "Safety-reserve breach differs from an unfunded payment; monthly rows do not verify within-month timing.",
+    "ICL cash outflow is a fixed voluntary assumption, not a statutory repayment calculation.",
+    "Calendar rollover for long job_delay inputs is a known unchanged defect.",
+    "job_delay does not delay the fixed part-time income start.",
+    "No live demo or AI experiment is executed by this script."
+  ]
+}

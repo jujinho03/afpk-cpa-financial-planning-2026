@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary
+*.zip binary
+*.docx binary
+# Preserve supplied originals byte-for-byte for SOURCE_MANIFEST.json.
+vendor/v4/** -text
+docs/bible/** -text
