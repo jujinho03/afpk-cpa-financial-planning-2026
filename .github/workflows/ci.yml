@@ -76,7 +76,7 @@ jobs:
       - name: Render judge-facing figures from tables
         run: python scripts/render_figures.py
       - name: Verify committed tables and figures are reproducible
-        run: git diff --exit-code -- outputs/tables/model_summary.json outputs/tables/monthly_cashflows.csv outputs/figures
+        run: git diff --exit-code -- outputs/tables/model_summary.json outputs/tables/monthly_cashflows.csv outputs/tables/sensitivity.json outputs/figures
 
 # The two existing required contexts now depend on both actual demo jobs.
 # Tests use synthetic data and do not call external LLM APIs or deploy.

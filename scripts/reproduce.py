@@ -82,7 +82,59 @@ def export(output_dir: Path) -> dict:
         writer = csv.DictWriter(stream, fieldnames=list(monthly[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(monthly)
+    (output_dir / "sensitivity.json").write_text(
+        json.dumps(sensitivity(), ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8", newline="\n",
+    )
     return summary
+
+
+def _short_horizon(plan: str, outcome: str, job_delay: int) -> dict:
+    result = model.metrics(plan, outcome, job_delay=job_delay)
+    return {
+        "plan": plan,
+        "outcome": outcome,
+        "job_delay_months": job_delay,
+        "cash_18": result["c18"],
+        "minimum_safety_margin_18": result["min18"],
+        "first_safety_violation_18": iso_month(result["first_violation"]),
+    }
+
+
+def sensitivity() -> dict:
+    """Export the documented sensitivity cases by calling unchanged v4 functions.
+
+    No new formula: values are what tests/README already cite, so documents can
+    cite one generated file instead of test code. Delay grids stay short because
+    long job_delay inputs hit the known calendar-rollover defect.
+    """
+    base_b = round(model.expected_pv("B"), 3)
+    return {
+        "model": "supplied v4; formulas and assumptions unchanged",
+        "status": "synthetic assumptions; not a personal outcome prediction",
+        "amount_unit": "10,000 KRW",
+        "base_weights": {"p": model.P_BASE, "q": model.Q_BASE, "delta_B": model.DELTA_BASE},
+        "c_first_salary_delay": [
+            {
+                "job_delay_months": d,
+                "weighted_discounted_cashflow_60_C": round(model.expected_pv("C", job_delay=d), 3),
+                "base_weighted_discounted_cashflow_60_B": base_b,
+                **{k: v for k, v in _short_horizon("C", "F", d).items()
+                   if k in ("cash_18", "minimum_safety_margin_18", "first_safety_violation_18")},
+            }
+            for d in (0, 3, 6)
+        ],
+        "d_regular_salary_delay_unassigned": [_short_horizon("D", "U", d) for d in (0, 1, 2)],
+        "b_pass_condition_drop": [
+            {"delta_B": delta, "weighted_discounted_cashflow_60_B": round(model.expected_pv("B", delta=delta), 3)}
+            for delta in (0.0, 0.05, 0.10, 0.15)
+        ],
+        "notes": [
+            "job_delay shifts the first regular/CPA salary month only; part-time start is unchanged (known limitation).",
+            "Delays are scenario inputs, not forecasts of hiring or salary timing.",
+            "delta_B is an assumed drop in the pass-condition weight for part-time study, not measured data.",
+        ],
+    }
 
 
 def main() -> None:
@@ -95,7 +147,7 @@ def main() -> None:
     print("Synthetic v4 results; amount unit: 10,000 KRW")
     for plan, value in summary["weighted_discounted_cashflow_60"].items():
         print(f"{plan}: {value:.3f}")
-    print("Exported 12 scenarios / 720 monthly rows to", args.output_dir)
+    print("Exported 12 scenarios / 720 monthly rows / sensitivity cases to", args.output_dir)
 
 
 if __name__ == "__main__":
