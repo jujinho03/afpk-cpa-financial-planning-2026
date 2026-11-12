@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 574" width="1280" height="574" role="img" aria-labelledby="title desc" style="max-width:100%;height:auto">
+<title id="title">60개월 조건부 재무가치 — 기본 가정에서는 C가 우세</title>
+<desc id="desc">초기 가용현금을 포함한 60개월 가중 할인 순현금흐름. C 6,716.700만원, B 6,062.210만원, D 5,853.492만원, A 5,259.216만원. A는 단기 안전자금 제약을 위반한다.</desc>
+<style>text{font-family:"Noto Sans KR","Malgun Gothic",Arial,sans-serif}.number{font-family:Arial,"Malgun Gothic",sans-serif;font-variant-numeric:tabular-nums}</style>
+<rect x="0" y="0" width="1280" height="574" rx="20" fill="#FFFFFF"/>
+<text x="48" y="44" font-size="14" fill="#637487" font-weight="700" text-anchor="start">02 / CONDITIONAL FINANCIAL VALUE</text>
+<text x="48" y="90" font-size="31" fill="#142638" font-weight="700" text-anchor="start">기본 가정에서는 C, 선택권 보존 대안은 B</text>
+<text x="48" y="125" font-size="18" fill="#637487" font-weight="400" text-anchor="start">초기 현금을 포함한 60개월 가중 할인 순현금흐름 · 단위: 만원</text>
+<text x="48" y="197" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">C · 취업 전환</text>
+<rect x="236" y="168" width="690" height="42" rx="6" fill="#F5F8FA"/>
+<rect x="236" y="168" width="617.94" height="42" rx="6" fill="#007F7A"/>
+<text x="866.94" y="197" font-size="22" fill="#007F7A" font-weight="700" text-anchor="start" class="number">6,717</text>
+<text x="1006" y="196" font-size="17" fill="#007F7A" font-weight="700" text-anchor="start">재무지표 1위</text>
+<text x="48" y="270" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">B · 근로 병행</text>
+<rect x="236" y="241" width="690" height="42" rx="6" fill="#F5F8FA"/>
+<rect x="236" y="241" width="557.72" height="42" rx="6" fill="#3268AB"/>
+<text x="806.72" y="270" font-size="22" fill="#3268AB" font-weight="700" text-anchor="start" class="number">6,062</text>
+<text x="1006" y="269" font-size="17" fill="#3268AB" font-weight="700" text-anchor="start">응시 기회 유지</text>
+<text x="48" y="343" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">D · 조건부 전환</text>
+<rect x="236" y="314" width="690" height="42" rx="6" fill="#F5F8FA"/>
+<rect x="236" y="314" width="538.52" height="42" rx="6" fill="#B47A20"/>
+<text x="787.52" y="343" font-size="22" fill="#B47A20" font-weight="700" text-anchor="start" class="number">5,853</text>
+<text x="1006" y="342" font-size="17" fill="#B47A20" font-weight="700" text-anchor="start">급여 시점에 취약</text>
+<text x="48" y="416" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">A · 전업 수험</text>
+<rect x="236" y="387" width="690" height="42" rx="6" fill="#F5F8FA"/>
+<rect x="236" y="387" width="483.85" height="42" rx="6" fill="#B45250"/>
+<text x="732.85" y="416" font-size="22" fill="#B45250" font-weight="700" text-anchor="start" class="number">5,259</text>
+<text x="1006" y="415" font-size="17" fill="#B45250" font-weight="700" text-anchor="start">안전자금 하한 위반</text>
+<line x1="48" y1="473" x2="1232" y2="473" stroke="#DFE7ED" stroke-width="1"/>
+<text x="48" y="505" font-size="17" fill="#637487" font-weight="400" text-anchor="start">가정: p=0.60, q=0.70, B의 Δp=10%p · 연 할인율 5%</text>
+<text x="48" y="538" font-size="16" fill="#637487" font-weight="400" text-anchor="start">예시 가중치와 가상 임금의 비교입니다. 순자산·확정 수익이 아니며, 응시 기회의 비금전적 가치는 포함하지 않습니다.</text>
+</svg>
