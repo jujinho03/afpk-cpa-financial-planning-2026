@@ -11,8 +11,52 @@ permissions:
   contents: read
 
 jobs:
+  demo-frontend:
+    name: demo-frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/demo/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/demo/frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  demo-backend:
+    name: demo-backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/demo/backend
+    env:
+      GEMINI_API_KEY: ''
+      ANTHROPIC_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Unit and in-memory API tests (no external AI calls)
+        run: cargo test --locked
+      - name: Build local demo server
+        run: cargo build --locked
+      - name: HTTP contract smoke with isolated data and AI disabled
+        shell: bash
+        run: |
+          FINOVA_ENV=production DATABASE_URL='sqlite::memory:' PORT=18080 RUST_LOG=warn ./target/debug/finova-server > "$RUNNER_TEMP/afpk-demo-server.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          python ../../../scripts/smoke_demo.py --base-url http://127.0.0.1:18080
+
   reference-model:
     name: reference-model (${{ matrix.os }}, py${{ matrix.python }})
+    needs: [demo-frontend, demo-backend]
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -34,4 +78,5 @@ jobs:
       - name: Verify committed tables and figures are reproducible
         run: git diff --exit-code -- outputs/tables/model_summary.json outputs/tables/monthly_cashflows.csv outputs/figures
 
-# Demo build/AI calls are intentionally not invented before source intake.
+# The two existing required contexts now depend on both actual demo jobs.
+# Tests use synthetic data and do not call external LLM APIs or deploy.

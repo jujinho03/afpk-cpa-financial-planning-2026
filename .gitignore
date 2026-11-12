@@ -8,11 +8,14 @@
 *.pfx
 credentials*.json
 secrets*.json
+*.db
+*.db-shm
+*.db-wal
 **/*서명*
 **/*동의서*
 **/*제출확인서*
 # Environments, caches, builds, local audit workspace
-analysis/
+/analysis/
 .venv/
 venv/
 env/
