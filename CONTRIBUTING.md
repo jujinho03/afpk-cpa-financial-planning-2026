@@ -42,7 +42,8 @@ scripts/               재현·그림 생성·저장소 검사
 | `feature/financial-model` | 가정·재무모형 | 주진호 |
 | `feature/ai-evaluation` | 실제 E1~E6 증거·AI 부록 | 설경민 |
 | `feature/demo-integration` | 실행환경·모형 연결 | 박동찬 |
-| `feature/demo-import` | 원본 데모 제공·인수 | 설경민 제공 / 박동찬 검수 |
+| `import/afpk-demo` | 실제 원본 데모 업로드·보존 | 설경민 제공 / 박동찬 검수 |
+| `integration/demo-verified` | 원본 위의 실행·증거·문서 보완 | 공동 인수 검수 |
 
 작업 전에 origin/main을 확인하고, 팀원이 올린 변경을 덮어쓰지 않습니다. Issue → 브랜치 → PR → 담당 리뷰 → 병합으로 진행합니다. PR에는 목적·기능 전후·검증 결과·가정 변경·AI 영향·검토자를 적습니다. Force push·기존 브랜치 삭제는 별도 승인 없이 하지 않습니다.
 

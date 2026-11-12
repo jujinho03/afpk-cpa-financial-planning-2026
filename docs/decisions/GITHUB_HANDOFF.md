@@ -1,6 +1,6 @@
 # GitHub 인수 기록
 
-> 아래는 초기 Private 구축 당시의 기록입니다. 이후 사용자가 Public 전환을 요청했습니다. 현재 공개 범위와 후속 보호 설정은 [공개 전환 기록](PUBLIC_RELEASE.md)을 확인합니다.
+> 아래는 초기 Private 구축 당시의 보존 기록입니다. 현재 저장소는 Public이며 main 보호가 적용돼 있습니다. 공개 범위와 후속 보호 설정은 [공개 전환 기록](PUBLIC_RELEASE.md)을 확인합니다. 이후 실제 데모 `import/afpk-demo`의 `bd5a625`를 인수했고, [통합 PR #8](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/pull/8)에 실제 실행·브라우저 검수·원격 CI 결과를 연결했습니다. 최신 기능 상태는 [인수 보고](../demo/DEMO_INTAKE_REPORT.md)를 참조합니다.
 
 기준일: 2026-11-12 KST. 아래는 GitHub API와 실제 push 결과로 확인한 인수 상태입니다. 팀원 수락은 이후 바뀔 수 있습니다.
 
