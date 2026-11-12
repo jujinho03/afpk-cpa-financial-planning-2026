@@ -8,6 +8,9 @@
 *.pfx
 credentials*.json
 secrets*.json
+*.db
+*.db-shm
+*.db-wal
 **/*서명*
 **/*동의서*
 **/*제출확인서*
