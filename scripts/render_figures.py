@@ -125,16 +125,16 @@ def overview(summary, rows):
 
 def financial_value(summary):
     pv = summary["weighted_discounted_cashflow_60"]
-    f = Figure(574, "60개월 조건부 재무가치 — 기본 가정에서는 C가 우세",
+    f = Figure(574, "60개월 조건부 장기 지표 — 가상 가정, 초기 현금 포함",
                "초기 가용현금을 포함한 60개월 가중 할인 순현금흐름. "
                + ", ".join(f"{p} {pv[p]:,.3f}만원" for p in "CBDA")
                + ". A는 단기 안전자금 제약을 위반한다.")
     f.text(48, 44, "02 / CONDITIONAL FINANCIAL VALUE", 14, MUTED, 700)
-    f.text(48, 90, "기본 가정에서는 C, 선택권 보존 대안은 B", 31, NAVY, 700)
+    f.text(48, 90, "60개월 조건부 장기 지표 비교", 31, NAVY, 700)
     f.text(48, 125, "초기 현금을 포함한 60개월 가중 할인 순현금흐름 · 단위: 만원", 18, MUTED)
     left, width, top, gap = 236, 690, 168, 73
     maximum = 7500
-    statuses = {"C": "재무지표 1위", "B": "응시 기회 유지", "D": "급여 시점에 취약", "A": "안전자금 하한 위반"}
+    statuses = {"C": "첫 급여 일정에 의존", "B": "응시 기회 유지", "D": "급여 시점에 취약", "A": "안전자금 하한 위반"}
     for i, plan in enumerate("CBDA"):
         y = top + i * gap
         f.text(48, y + 29, LABELS[plan], 20, INK, 700)
@@ -203,7 +203,7 @@ def liquidity(paths, summary):
     unfunded_month = "없음" if unfunded is None else paths["A"][unfunded]["ym"].replace("-", ".")
     f.text(48, 591, f"A/U 안전자금 하한 위반: {breach_month} · 미충당액 발생: {unfunded_month}. 두 사건은 서로 다릅니다.", 17, INK, 700)
     f.text(48, 623, "가상 고객·고정 소득경로의 월말 계산입니다. 실제 채용·급여를 보장하지 않으며 월중 지급일까지 검증한 결과는 아닙니다.", 16, MUTED)
-    f.text(48, 653, "출처: outputs/tables/monthly_cashflows.csv · 기본 가정: docs/assumptions/BASELINE.md", 14, MUTED)
+    f.text(48, 653, "자료: 저자 계산(참조 모형, 가상 가정)", 14, MUTED)
     return f.finish()
 
 

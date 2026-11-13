@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 574" width="1280" height="574" role="img" aria-labelledby="title desc" style="max-width:100%;height:auto">
-<title id="title">60개월 조건부 재무가치 — 기본 가정에서는 C가 우세</title>
+<title id="title">60개월 조건부 장기 지표 — 가상 가정, 초기 현금 포함</title>
 <desc id="desc">초기 가용현금을 포함한 60개월 가중 할인 순현금흐름. C 6,716.700만원, B 6,062.210만원, D 5,853.492만원, A 5,259.216만원. A는 단기 안전자금 제약을 위반한다.</desc>
 <style>text{font-family:"Noto Sans KR","Malgun Gothic",Arial,sans-serif}.number{font-family:Arial,"Malgun Gothic",sans-serif;font-variant-numeric:tabular-nums}</style>
 <rect x="0" y="0" width="1280" height="574" rx="20" fill="#FFFFFF"/>
 <text x="48" y="44" font-size="14" fill="#637487" font-weight="700" text-anchor="start">02 / CONDITIONAL FINANCIAL VALUE</text>
-<text x="48" y="90" font-size="31" fill="#142638" font-weight="700" text-anchor="start">기본 가정에서는 C, 선택권 보존 대안은 B</text>
+<text x="48" y="90" font-size="31" fill="#142638" font-weight="700" text-anchor="start">60개월 조건부 장기 지표 비교</text>
 <text x="48" y="125" font-size="18" fill="#637487" font-weight="400" text-anchor="start">초기 현금을 포함한 60개월 가중 할인 순현금흐름 · 단위: 만원</text>
 <text x="48" y="197" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">C · 취업 전환</text>
 <rect x="236" y="168" width="690" height="42" rx="6" fill="#F5F8FA"/>
 <rect x="236" y="168" width="617.94" height="42" rx="6" fill="#007F7A"/>
 <text x="866.94" y="197" font-size="22" fill="#007F7A" font-weight="700" text-anchor="start" class="number">6,717</text>
-<text x="1006" y="196" font-size="17" fill="#007F7A" font-weight="700" text-anchor="start">재무지표 1위</text>
+<text x="1006" y="196" font-size="17" fill="#007F7A" font-weight="700" text-anchor="start">첫 급여 일정에 의존</text>
 <text x="48" y="270" font-size="20" fill="#22384B" font-weight="700" text-anchor="start">B · 근로 병행</text>
 <rect x="236" y="241" width="690" height="42" rx="6" fill="#F5F8FA"/>
 <rect x="236" y="241" width="557.72" height="42" rx="6" fill="#3268AB"/>
