@@ -101,6 +101,38 @@ def _short_horizon(plan: str, outcome: str, job_delay: int) -> dict:
     }
 
 
+def _parttime_pay_delay(plan: str, outcome: str, unpaid_months: int) -> dict:
+    """Short-horizon stress on top of unchanged v4 rows.
+
+    The first `unpaid_months` part-time paychecks (rows whose v4 income equals
+    PARTTIME) are treated as never received; nothing else in the row changes.
+    This is a conservative overlay (lost, not deferred pay); the v4 job_delay
+    input does not move part-time income, so v4 itself is not modified.
+    """
+    rows = model.simulate(plan, outcome)[:18]
+    cash, skipped = model.INITIAL_CASH, 0
+    margins, first_violation, first_unfunded = [], None, None
+    for row in rows:
+        lost = 0.0
+        if skipped < unpaid_months and row["income"] == model.PARTTIME:
+            lost, skipped = row["income"], skipped + 1
+        cash += row["net"] - lost
+        margins.append(cash - row["cmin"])
+        if first_violation is None and cash < row["cmin"]:
+            first_violation = row["ym"]
+        if first_unfunded is None and cash < 0:
+            first_unfunded = row["ym"]
+    return {
+        "plan": plan,
+        "outcome": outcome,
+        "parttime_unpaid_months": unpaid_months,
+        "cash_18": round(cash, 1),
+        "minimum_safety_margin_18": round(min(margins), 1),
+        "first_safety_violation_18": iso_month(first_violation),
+        "first_unfunded_month_18": iso_month(first_unfunded),
+    }
+
+
 def sensitivity() -> dict:
     """Export the documented sensitivity cases by calling unchanged v4 functions.
 
@@ -129,7 +161,15 @@ def sensitivity() -> dict:
             {"delta_B": delta, "weighted_discounted_cashflow_60_B": round(model.expected_pv("B", delta=delta), 3)}
             for delta in (0.0, 0.05, 0.10, 0.15)
         ],
+        "parttime_first_pay_delay": [
+            _parttime_pay_delay(plan, outcome, k)
+            for plan in ("B", "D")
+            for outcome in ("P", "U", "F")
+            for k in range(7)
+        ],
         "notes": [
+            "parttime_first_pay_delay: first k part-time paychecks (80/month) treated as lost, not deferred; "
+            "overlay on unchanged v4 rows, short horizon only. A scenario stress, not a hiring forecast.",
             "job_delay shifts the first regular/CPA salary month only; part-time start is unchanged (known limitation).",
             "Delays are scenario inputs, not forecasts of hiring or salary timing.",
             "delta_B is an assumed drop in the pass-condition weight for part-time study, not measured data.",

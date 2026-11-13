@@ -77,7 +77,388 @@
       "weighted_discounted_cashflow_60_B": 5960.489
     }
   ],
+  "parttime_first_pay_delay": [
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 0,
+      "cash_18": 1775.0,
+      "minimum_safety_margin_18": 565.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 1,
+      "cash_18": 1695.0,
+      "minimum_safety_margin_18": 485.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 2,
+      "cash_18": 1615.0,
+      "minimum_safety_margin_18": 405.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 3,
+      "cash_18": 1535.0,
+      "minimum_safety_margin_18": 325.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 4,
+      "cash_18": 1455.0,
+      "minimum_safety_margin_18": 245.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 5,
+      "cash_18": 1375.0,
+      "minimum_safety_margin_18": 165.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "P",
+      "parttime_unpaid_months": 6,
+      "cash_18": 1295.0,
+      "minimum_safety_margin_18": 85.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 0,
+      "cash_18": 1025.0,
+      "minimum_safety_margin_18": 445.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 1,
+      "cash_18": 945.0,
+      "minimum_safety_margin_18": 365.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 2,
+      "cash_18": 865.0,
+      "minimum_safety_margin_18": 285.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 3,
+      "cash_18": 785.0,
+      "minimum_safety_margin_18": 205.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 4,
+      "cash_18": 705.0,
+      "minimum_safety_margin_18": 125.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 5,
+      "cash_18": 625.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "U",
+      "parttime_unpaid_months": 6,
+      "cash_18": 545.0,
+      "minimum_safety_margin_18": -35.0,
+      "first_safety_violation_18": "2028-03",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 0,
+      "cash_18": 1325.0,
+      "minimum_safety_margin_18": 525.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 1,
+      "cash_18": 1245.0,
+      "minimum_safety_margin_18": 445.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 2,
+      "cash_18": 1165.0,
+      "minimum_safety_margin_18": 365.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 3,
+      "cash_18": 1085.0,
+      "minimum_safety_margin_18": 285.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 4,
+      "cash_18": 1005.0,
+      "minimum_safety_margin_18": 205.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 5,
+      "cash_18": 925.0,
+      "minimum_safety_margin_18": 125.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "B",
+      "outcome": "F",
+      "parttime_unpaid_months": 6,
+      "cash_18": 845.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 0,
+      "cash_18": 1295.0,
+      "minimum_safety_margin_18": 85.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 1,
+      "cash_18": 1215.0,
+      "minimum_safety_margin_18": 5.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 2,
+      "cash_18": 1135.0,
+      "minimum_safety_margin_18": -75.0,
+      "first_safety_violation_18": "2027-11",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 3,
+      "cash_18": 1055.0,
+      "minimum_safety_margin_18": -155.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 4,
+      "cash_18": 975.0,
+      "minimum_safety_margin_18": -235.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 5,
+      "cash_18": 895.0,
+      "minimum_safety_margin_18": -315.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "P",
+      "parttime_unpaid_months": 6,
+      "cash_18": 895.0,
+      "minimum_safety_margin_18": -315.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 0,
+      "cash_18": 845.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 1,
+      "cash_18": 765.0,
+      "minimum_safety_margin_18": -35.0,
+      "first_safety_violation_18": "2028-01",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 2,
+      "cash_18": 685.0,
+      "minimum_safety_margin_18": -115.0,
+      "first_safety_violation_18": "2027-11",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 3,
+      "cash_18": 605.0,
+      "minimum_safety_margin_18": -195.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 4,
+      "cash_18": 525.0,
+      "minimum_safety_margin_18": -275.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 5,
+      "cash_18": 445.0,
+      "minimum_safety_margin_18": -355.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "U",
+      "parttime_unpaid_months": 6,
+      "cash_18": 365.0,
+      "minimum_safety_margin_18": -435.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": "2028-01"
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 0,
+      "cash_18": 845.0,
+      "minimum_safety_margin_18": 45.0,
+      "first_safety_violation_18": null,
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 1,
+      "cash_18": 765.0,
+      "minimum_safety_margin_18": -35.0,
+      "first_safety_violation_18": "2028-01",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 2,
+      "cash_18": 685.0,
+      "minimum_safety_margin_18": -115.0,
+      "first_safety_violation_18": "2027-11",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 3,
+      "cash_18": 605.0,
+      "minimum_safety_margin_18": -195.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 4,
+      "cash_18": 525.0,
+      "minimum_safety_margin_18": -275.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 5,
+      "cash_18": 445.0,
+      "minimum_safety_margin_18": -355.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": null
+    },
+    {
+      "plan": "D",
+      "outcome": "F",
+      "parttime_unpaid_months": 6,
+      "cash_18": 365.0,
+      "minimum_safety_margin_18": -435.0,
+      "first_safety_violation_18": "2027-10",
+      "first_unfunded_month_18": "2028-01"
+    }
+  ],
   "notes": [
+    "parttime_first_pay_delay: first k part-time paychecks (80/month) treated as lost, not deferred; overlay on unchanged v4 rows, short horizon only. A scenario stress, not a hiring forecast.",
     "job_delay shifts the first regular/CPA salary month only; part-time start is unchanged (known limitation).",
     "Delays are scenario inputs, not forecasts of hiring or salary timing.",
     "delta_B is an assumed drop in the pass-condition weight for part-time study, not measured data."

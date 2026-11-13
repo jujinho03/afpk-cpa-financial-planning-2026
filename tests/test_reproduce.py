@@ -52,5 +52,27 @@ class ReproductionExportTests(unittest.TestCase):
             b = [round(row["weighted_discounted_cashflow_60_B"]) for row in data["b_pass_condition_drop"]]
             self.assertEqual(b, [6266, 6164, 6062, 5960])
 
+    def test_parttime_pay_delay_overlay(self):
+        with tempfile.TemporaryDirectory(dir=REPO, prefix=".test-reproduce-") as directory:
+            output = Path(directory)
+            summary = reproduce.export(output)
+            data = json.loads((output / "sensitivity.json").read_text(encoding="utf-8"))
+            rows = {(r["plan"], r["outcome"], r["parttime_unpaid_months"]): r
+                    for r in data["parttime_first_pay_delay"]}
+            # k=0 reproduces unchanged v4 short-horizon results.
+            for s in summary["scenarios"]:
+                if s["plan"] in ("B", "D"):
+                    base = rows[(s["plan"], s["outcome"], 0)]
+                    self.assertEqual(base["cash_18"], s["cash_18"])
+                    self.assertEqual(base["minimum_safety_margin_18"], s["minimum_safety_margin_18"])
+            # B tolerates five lost part-time paychecks in every outcome; B/U breaches at six.
+            for outcome in ("P", "U", "F"):
+                self.assertIsNone(rows[("B", outcome, 5)]["first_safety_violation_18"])
+            self.assertEqual(rows[("B", "U", 5)]["minimum_safety_margin_18"], 45.0)
+            self.assertEqual(rows[("B", "U", 6)]["first_safety_violation_18"], "2028-03")
+            # D/U and D/F breach after a single lost part-time paycheck.
+            for outcome in ("U", "F"):
+                self.assertEqual(rows[("D", outcome, 1)]["first_safety_violation_18"], "2028-01")
+
 if __name__ == "__main__":
     unittest.main()
