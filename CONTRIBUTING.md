@@ -6,12 +6,15 @@ Python 3.10 이상이 필요합니다. 참조 계산·테스트·그림 생성�
 
 ```sh
 python scripts/reproduce.py
+python scripts/audit_ai_claims.py --check
 python scripts/render_figures.py
 python -m unittest discover -s tests -v
 python scripts/check_repository.py
 ```
 
 계산 수식·가정을 바꾸지 않았다면 JSON·CSV·SVG를 다시 생성해도 diff가 없어야 합니다. Git index에 올린 내용은 `python scripts/check_repository.py --staged`로 검사합니다. 패턴 검사는 완전한 보안 감사가 아닙니다.
+
+인수한 AI 주장 대조는 [별도 검산 안내](ai_evidence/CLAIM_AUDIT.md)를 따릅니다. 원출력 해시를 고정하고 같은 입력의10개월만 CSV와 비교합니다. 검토 주석과 계산 결과를 수정했다면 `python scripts/audit_ai_claims.py --write` 후 변경 근거를 검토합니다. 결과 재현은 사람의 금융판정·최종 승인과 구분합니다.
 
 ## 폴더 안내
 
