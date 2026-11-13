@@ -11,10 +11,10 @@
 | 바이블 MD·PDF v1.0 / Python v4 | 원본·가정·재현 표·테스트 확보 | 현재 보고서 수치의 기준으로 보존 |
 | 데모 원본 | 설경민이 `import/afpk-demo`의 `bd5a62518f07f4f738a1c1ec69d4c697d7345ccb`로 제공 | 원저작자·커밋 이력을 유지한 통합·검수 대상 |
 | 기술 스택 | React 18·TypeScript·Vite / Rust·Axum·Tokio·SQLite | 새 앱·프레임워크를 만들지 않고 기존 실행환경 활용 |
-| 화면 | `/`, `/client`, `/canvas`, `/copilot`, `/simulator`, `/verification`, `/plan`, `/report`의 8개 라우트 확인 | 실제 동작·빌드·API 연결 결과는 [인수 보고](../demo/DEMO_INTAKE_REPORT.md) 확인 |
-| 금융 계산 | 데모는 Rust API, Python 자동 호출 없음 | [차이 분석](../demo/DEMO_BIBLE_GAP_ANALYSIS.md)의 별도 프로필로 구분. 같은 가정 검산이라고 쓰지 않음 |
+| 화면 | `/`, `/client`, `/canvas`, `/copilot`, `/simulator`, `/verification`, `/plan`, `/report`의 8개 라우트 확인 | 실제 동작·빌드·API 연결 결과는 [인수 보고](../../demo/DEMO_INTAKE_REPORT.md) 확인 |
+| 금융 계산 | 데모는 Rust API, Python 자동 호출 없음 | [차이 분석](../../demo/DEMO_BIBLE_GAP_ANALYSIS.md)의 별도 프로필로 구분. 같은 가정 검산이라고 쓰지 않음 |
 | AI 출력 기록 | E1~E8 8개 run·23개 주장, 입력·출력·모델·시각 포함 | `IMPORTED_UNREVIEWED`: 제공자가 실행했다고 기록한 자료. 이번 API 재실행·제공자측 진위 확인·인간 최종 판정은 별도 |
-| 실험 ID | 루트와 데모의 E5/E6 질문 의미가 다름 | [AI 증거 인덱스](../../ai_evidence/README.md)에서 의미별 매핑 후 기술서 반영 |
+| 실험 ID | 루트와 데모의 E5/E6 질문 의미가 다름 | [AI 증거 인덱스](../../../ai_evidence/README.md)에서 의미별 매핑 후 기술서 반영 |
 | 실제 임금·ICL·급여일 | 데모의 근사·일부 제도 계산 구현 확인, 현실성·적용 범위 검증 남음 | 공식 사실·시나리오·직접 입력을 구분 |
 | 공식 양식·최종 본문·서명 | 이 인수 단계의 완료 대상 아님 | P0로 추적, 서명 서류는 GitHub에 올리지 않음 |
 | 팀 계정 | 주진호 `jujinho03`, 설경민 `k0ng-min`, 박동찬 `feeljis131` | 리뷰·초대 수락의 최신 상태는 GitHub에서 확인 |
@@ -40,7 +40,7 @@ Rust의 고객 입력·A/B/C/D 계산·월중 최저·전환 신호·60개월 �
 3. 수입 AI 원출력·실험 ID의 의미 매핑 → 원본 입력에 맞는 독립 판정 → 사람이 판정·수정 전후 권고 기록 → AI 기술서.
 4. 필수 본문+AI 부록 → 숫자·출처·익명성·형식 QA → 팀원 서명과 제출 담당 확인.
 
-이번 실행 검증은 API 키 없이 수행합니다. 외부 LLM을 재호출해 과금하거나 기존 기록을 새 실험으로 작성하지 않습니다. 최신 실행·빌드·통과/실패 수치는 [인수 보고](../demo/DEMO_INTAKE_REPORT.md)에만 모아 중복된 성공 주장을 피합니다.
+이번 실행 검증은 API 키 없이 수행합니다. 외부 LLM을 재호출해 과금하거나 기존 기록을 새 실험으로 작성하지 않습니다. 최신 실행·빌드·통과/실패 수치는 [인수 보고](../../demo/DEMO_INTAKE_REPORT.md)에만 모아 중복된 성공 주장을 피합니다.
 
 ## 다음 단계 확정 입력
 

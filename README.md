@@ -28,14 +28,14 @@ CPA 2차 유예생의 소득 공백을 **18개월 유동성 → 60개월 조건�
 
 **아래 숫자는 가상 임금·일정·가중치를 넣어 실제 코드로 계산한 값입니다. 개인의 합격·취업 가능성을 추정한 결과가 아닙니다.**
 
-| 전략 | 행동 | 18개월 안전자금 검사 | 60개월 가중 현금흐름 현가 |
-|---|---|---|---:|
-| **A · 전업 수험** | 소득 없이 시험 준비 후 결과별 구직 | 세 결과 상태 모두 2027.10 하한 위반 | 5,259.2만 원 |
-| **B · 근로 병행** | 시간제 근로 후 결과별 정규직 전환 | 기본 가정의 세 상태에서 통과 | 6,062.2만 원 |
-| **C · 취업 전환** | 2027.04 첫 일반직 급여 가정 | 기본 가정에서 통과 | **6,716.7만 원** |
-| **D · 조건부 전환** | 시험 후 시간제 → 정규직 | 기본 가정에서 통과, 지연에 취약 | 5,853.5만 원 |
+| 전략 | 행동 | 18개월 안전자금 검사 | 급여 차질 내성 | 60개월 가중 현금흐름 현가 | 판단 |
+|---|---|---|---|---:|---|
+| **A · 전업 수험** | 소득 없이 시험 준비 후 결과별 구직 | 세 결과 모두 2027.10 하한 위반 | — | 5,259.2만 원 | 제외 |
+| **B · 근로 병행** | 시간제 근로 후 결과별 정규직 전환 | 통과, 최소 여유 445만 원 | 시간제 첫 급여 **5개월** 미수령까지 하한 유지 | 6,062.2만 원 | **조건부 우선 검토** |
+| **C · 취업 전환** | 2027.04 첫 일반직 급여 가정 | 통과, 최소 여유 710만 원 | 첫 급여 3개월 지연 시 지표가 B 아래로 | **6,716.7만 원** | 응시기회 포기 시 재비교 |
+| **D · 조건부 전환** | 시험 후 시간제 → 정규직 | 통과, 최소 여유 45만 원 | 시간제 **1개월** 미수령으로 하한 위반 | 5,853.5만 원 | 위험 공개 후 보조 검토 |
 
-**해석:** 현재 가정에서는 C의 장기 지표가 가장 높습니다. B는 약 **654.5만 원의 지표 차이**와 공부시간 감소를 설명한 뒤, 고객이 유예 응시 기회를 중시할 때 검토할 대안입니다. A는 안전자금 기준에서 제외하며, D는 실제 급여 일정이 지켜지는지 확인해야 합니다.
+**해석:** C의 장기 지표가 가장 높지만, 그 우위는 첫 급여 일정 하나에 기대고 있습니다. 응시기회 보존을 중시하는 이 고객에게는 **B를 조건부로 우선 검토**합니다. B는 안전자금 여유가 크고 시간제 급여 차질에도 오래 버팁니다. 대신 C와의 지표 차이 **654.5만 원**과 공부시간 감소를 고객에게 설명합니다. 또 실제 계약·첫 입금을 확인하고, 2027.06 말까지 입금이 없으면 B를 계획에서 내립니다. A는 안전자금 기준에서 제외하고, D는 여유가 얇다는 점을 공개합니다.
 
 ![가상 가중치를 적용한 전략별 60개월 현금흐름 현재가치 비교](outputs/figures/financial-value.svg)
 
@@ -48,6 +48,7 @@ CPA 2차 유예생의 소득 공백을 **18개월 유동성 → 60개월 조건�
 - **A/U:** 2027.10 잔액 285만 원으로 안전자금 360만 원을 밑돕니다. 미충당액이 처음 생기는 시점은 그보다 늦은 **2028.01**입니다.
 - **D/U:** 정규직 첫 급여가 1개월 늦으면 하한 위 여유가 **5만 원**, 2개월 늦으면 2028.03에 하한을 **35만 원** 밑돕니다.
 - **C:** 첫 급여를 3개월 늦추면 장기 지표가 **5,968.6만 원**으로 낮아져 B의 기본값 아래로 내려갑니다.
+- **B vs D (시간제 첫 급여 미수령):** B는 5개월을 받지 못해도 세 결과 모두에서 하한을 지킵니다(B/U 여유 45만 원). D/U·D/F는 1개월만으로 2028.01에 하한을 밑돕니다. [계산 결과](outputs/tables/sensitivity.json)의 `parttime_first_pay_delay`이며, 급여가 늦게 들어오는 것보다 불리한 '받지 못함' 가정입니다.
 
 이는 **현재 가정을 유지한 시나리오 비교**입니다. 채용 보장이나 안전 확률이 아닙니다. 월말 계산은 월중의 월세·급여 지급 순서까지 확인하지 않습니다. [수치와 한계 읽기](docs/JUDGES_GUIDE.md)
 
@@ -113,15 +114,26 @@ python scripts/check_repository.py
 
 `outputs/tables/`의 JSON·CSV에서 그림을 생성합니다. CI는 테스트와 원본 해시를 검사하고 표·그림 재생성 후 Git diff가 없는지도 확인합니다. 알려진 결함을 재현하는 테스트는 **결함 해결 또는 금융 타당성 승인**을 의미하지 않습니다.
 
-## 근거를 따라가는 저장소
+## 저장소 지도
 
-| 확인할 것 | 위치 |
-|---|---|
-| 문제·고객·재무설계 6단계 | [기획서 Markdown](docs/bible/AFPK_CPA_아이디어_기획서.md) / [PDF](docs/bible/AFPK_CPA_아이디어_기획서.pdf) |
-| 가정·공식 출처·원본 동일성 | [가정 원장](docs/assumptions/BASELINE.md) / [출처](docs/references/README.md) / [SHA-256](docs/references/SOURCE_MANIFEST.json) |
-| 계산 코드·월별 근거 | [참조 구현](src/afpk_cpa/financial/model_v4.py) / [720행 CSV](outputs/tables/monthly_cashflows.csv) |
-| 한계·남은 작업 | [한계 원장](docs/decisions/KNOWN_LIMITATIONS.md) / [Issues](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/issues) |
-| 실행·개발·데모 업로드 | [기여 안내](CONTRIBUTING.md) / [데모 인수 안내](apps/demo/README.md) |
+결론(`outputs/`)은 계산 코드(`src/`)가 가정(`docs/assumptions/`)으로부터 만들어 내고, 테스트(`tests/`)가 그 과정을 고정합니다. 화살표 방향으로 따라가면 모든 숫자의 출처에 닿습니다.
+
+**가정** `docs/assumptions/BASELINE.md` → **계산** `src/afpk_cpa/financial/model_v4.py` → **표 생성** `scripts/reproduce.py` → **결과** `outputs/tables/*.json·csv` → **그림 생성** `scripts/render_figures.py` → **그림** `outputs/figures/*.svg`
+
+| 폴더 | 역할 | 먼저 볼 파일 |
+|---|---|---|
+| [`docs/`](docs/README.md) | 심사 안내, 가정, 한계, 출처, 기획서 | [3분 안내](docs/JUDGES_GUIDE.md), [가정 원장](docs/assumptions/BASELINE.md), [한계 원장](docs/decisions/KNOWN_LIMITATIONS.md) |
+| [`outputs/`](outputs/figures/README.md) | 코드가 생성한 결과(손으로 고치지 않음) | [요약 JSON](outputs/tables/model_summary.json), [민감도 JSON](outputs/tables/sensitivity.json), [720행 CSV](outputs/tables/monthly_cashflows.csv) |
+| `src/afpk_cpa/financial/` | 참조 계산 모형(Python 표준 라이브러리) | [model_v4.py](src/afpk_cpa/financial/model_v4.py) |
+| `scripts/` | 표 재현·그림 생성·저장소 점검·데모 smoke 검사 | [reproduce.py](scripts/reproduce.py), [check_repository.py](scripts/check_repository.py) |
+| `tests/` | 기준값 고정·경계조건·알려진 결함 재현 테스트 | [test_model_v4.py](tests/test_model_v4.py), [test_reproduce.py](tests/test_reproduce.py) |
+| [`ai_evidence/`](ai_evidence/README.md) | AI 실험 원출력의 출처·상태·번호 대응 | [증거 구조](ai_evidence/README.md) |
+| [`apps/demo/`](apps/demo/README.md) | 기존 React·Rust 웹 데모(별도 확장 모형) | [데모 실행 안내](apps/demo/README.md), [두 모형 차이](docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md) |
+| `vendor/v4/` | 처음 받은 v4 원본(SHA-256 고정, 수정 금지) | [원본 설명](vendor/v4/README.txt) |
+| `reports/` | 원고 위치 안내만 둠. 참가작 원고는 제출 규정에 따라 공개하지 않음 | [안내](reports/drafts/README.md) |
+| `.github/` | CI(Python·Rust·프런트 검사), Issue·PR 양식 | [CI 설정](.github/workflows/ci.yml) |
+
+협업 규칙은 [AGENTS.md](AGENTS.md)와 [기여 안내](CONTRIBUTING.md), 변경 이력은 [CHANGELOG](CHANGELOG.md)에 있습니다.
 
 ## 팀
 

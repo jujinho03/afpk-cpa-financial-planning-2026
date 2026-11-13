@@ -21,9 +21,9 @@ apps/demo/             React/Rust 기존 데모와 별도 모형
 docs/bible/            제공받은 기획서 원본
 docs/assumptions/      가정 원장
 docs/references/       공식 출처·원본 해시
-docs/decisions/        한계·운영·공개 기록
+docs/decisions/        모형 한계·공개 범위 기록
 docs/demo/             소스 인수·정합성 검토
-docs/sprint/           최종 일정 작성을 위한 입력자료
+docs/archive/          지난 일정 입력자료·저장소 초기 설정 기록(현재 기준 아님)
 src/afpk_cpa/financial/ v4 참조 계산
 tests/                 회귀·경계조건·재현 검사
 ai_evidence/           E1~E6 실제 실험 기록 위치
