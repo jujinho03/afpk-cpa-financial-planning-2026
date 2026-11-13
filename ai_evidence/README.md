@@ -7,6 +7,7 @@
 - [제공된 원출력 JSON](../apps/demo/ai/evaluations/cpa_experiment_runs.json)
 - [제공된 프롬프트·판정 기준](../apps/demo/ai/prompts/verification/cpa_experiments.json)
 - [보안·증거 검토](../docs/demo/SECURITY_AND_EVIDENCE_REVIEW.md)
+- [23개 주장 대조의 재현](CLAIM_AUDIT.md) — 독립 계산과 자료 검토 주석. 제공자 호출 증명·사람 최종 승인은 별도
 
 원출력 파일 SHA-256: `cfae9faa0c1db35da6c482f38346e4438129089986944b09729141c5a5f682a3`. 원문을 수정·복제하지 않고 원래 경로로 연결합니다.
 
@@ -30,6 +31,7 @@
 | 원본 제공자 응답·서버 로그·요청 식별자 | 미인수. 필요 시 작성자에게 요청 |
 | 기술 실패 이력 | note에 2048토큰 응답 실패 후 재실행했다고 설명하지만 실패 원출력은 포함되지 않음 |
 | 검산 | claims를 Rust 기본값/patch와 비교하는 코드 존재. 계산 일치와 법령·문맥 타당성은 다른 판정 |
+| 독립 대조 코드 | `scripts/audit_ai_claims.py --check`: 선정23개에 원문 위치·근거·한계 연결. 같은 입력10개월 CSV 및 산식 재계산. 문맥·공식 자료는 작성된 검토 주석이며 사람 판정 아님 |
 | 사람 최종 판정·수정된 권고 | 파일에 없음. aiReview는 AI의 1차 의견이며 사람 승인 아님 |
 | 원래 바이블의 E5·E6 충족 | ID만으로 충족 처리하지 않음. E5 첫 지급일, E6 공부시간·취업지연의 원래 기준에 대한 추가 대응 필요 |
 

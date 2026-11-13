@@ -1,0 +1,121 @@
+{
+  "source_sha256": "cfae9faa0c1db35da6c482f38346e4438129089986944b09729141c5a5f682a3",
+  "review_author": "Codex LLM",
+  "source_review_date": "2026-11-13",
+  "source_review_scope": "Authored source annotations; the offline script only verifies arithmetic, IDs, source hashes and CSV agreement. No human approval or provider-call verification.",
+  "source_access_notes": {
+    "FSC": "결과 발표의 유예생 통계·부분합격 설명과 수습 안정화 발표 본문을 읽음.",
+    "LAW": "앞선 조문 열람 기록을 사용. 이번 재접속은 시스템 점검 안내로 연결되어 현행 조문을 새로 조회했다고 주장하지 않음. 부분합격 다음 회 적용은 금융위원회 결과 발표에서도 확인.",
+    "NTS": "국세청 2026.04.20 공식 PDF의 1~2쪽을 읽음. 2025년 귀속 안내이며 미래연도 상환기준을 확정하지 않음. 원문 출처 페이지로 연결하고 PDF를 저장소에 복제하지 않음."
+  },
+  "expected_arithmetic": {
+    "E4/c4_end_cash": "125",
+    "E5/c1_minimum_cash_with_unverified_grants": "585",
+    "E5/c1_total_unverified_grants": "540",
+    "E6/c1_own_expression": "960",
+    "E7/c2_december_cash_if_monthly_wage_is_80": "350",
+    "E8/c1_expenses": "1355",
+    "E8/c1_september_cash": "405",
+    "E8/c2_own_item_sum": "14725",
+    "E8/c2_inclusive_months": 61,
+    "E3_unselected_prose_subtotal": "980"
+  },
+  "claims": {
+    "E1/c2": {
+      "category": "PERIOD_AND_RECOMMENDATION_SCOPE",
+      "evidence": "원입력의 9월말 현금405는 양수다. 같은 무소득 입력을18개월로 늘리면10월280으로 고정하한360 미달,1월−95다. 단기 충당 사실과 전체 전략 권고를 구분한다.",
+      "method": "EXECUTED_ORIGINAL_INPUTS_AND_CONTEXT", "sources": []
+    },
+    "E1/c3": {
+      "category": "GROUP_STATISTIC_SCOPE",
+      "evidence": "공식 집단 응시1572·합격959의 비율은 약61.0%다. 이 값이 해당 개인의 확률이나 근로의 인과효과라는 근거는 없다.",
+      "method": "AUTHORED_OFFICIAL_SOURCE_REVIEW",
+      "sources": ["https://fsc.go.kr/no010101/87628"]
+    },
+    "E2/c3": {
+      "category": "UNVERIFIED_ADDED_ASSUMPTION",
+      "evidence": "원입력에10월 입사·월330·채용 확정 근거가 없다. 수습 안정화 발표는 장기 미지정 신청자 중심의 한시적 방안이며 신규 합격자 전원 즉시 고용·급여 보장을 뜻하지 않는다.",
+      "method": "AUTHORED_INPUT_AND_OFFICIAL_SOURCE_REVIEW",
+      "sources": ["https://www.fsc.go.kr/no010101/87013"]
+    },
+    "E2/c4": {
+      "category": "CHANGED_INPUT",
+      "evidence": "생활비150·상환80은 출력이 추가한 조건이다. 입력 변경과 산술 오류는 다른 문제다.",
+      "method": "AUTHORED_INPUT_COMPARISON", "sources": []
+    },
+    "E3/c2": {
+      "category": "NEXT_SITTING_EXEMPTION_SCOPE",
+      "evidence": "금융위원회 결과 발표는 금년1차 합격자의 부분합격 과목을 내년2차에서 면제한다고 설명한다. 앞서 읽은 시행령3조3항도 다음 회에 한한다.2028자동연장이나 미래 개정·시행계획까지 보장하지 않는다.",
+      "method": "AUTHORED_OFFICIAL_SOURCE_REVIEW",
+      "sources": ["https://fsc.go.kr/no010101/87628", "https://www.law.go.kr/LSW/lsSideInfoP.do?docCls=jo&joBrNo=00&joNo=0003&lsiSeq=271153&urlMode=lsScJoRltInfoR"]
+    },
+    "E4/c3": {
+      "category": "REPAYMENT_CONDITIONS_UNVERIFIED",
+      "evidence": "국세청2026.04.20 안내1~2쪽은2025귀속 소득·통지·납부 및 유예 신청 조건을 설명한다. 현재 무직이면 무조건0, 취업 즉시 자동공제라고 일반화할 수 없다.",
+      "method": "AUTHORED_OFFICIAL_PDF_REVIEW",
+      "sources": ["https://www.nts.go.kr/nts/na/ntt/selectNttInfo.do?mi=2201&nttSn=1350361"]
+    },
+    "E4/c4": {
+      "category": "ARITHMETIC_ERROR",
+      "evidence": "출력의9월부터 월80을 넣으면530−(120+5−80)×9=125다. 출력의85+360=445와 다르며 안전자금360은 추가 현금 유입이 아니다.",
+      "method": "EXECUTED_OUTPUT_ASSUMPTIONS", "sources": []
+    },
+    "E5/c1": {
+      "category": "CONDITIONAL_CALCULATION_MATCH",
+      "evidence": "출력의 지원금300·240과10월부터 월80을 가정하면18개월 최저585다. 이 계산 일치는 지원 자격·선정·지급시점을 입증하지 않는다.",
+      "method": "EXECUTED_UNVERIFIED_OUTPUT_ASSUMPTIONS", "sources": []
+    },
+    "E5/c2": {
+      "category": "ELIGIBILITY_AND_TIMING_UNVERIFIED",
+      "evidence": "연령·거주지만으로 지원 자격·선정·중복수급·2027년 지급일을 확정할 수 없다. 지급 결정 증빙이 없으며, 반대로 수급 불가능이라고 단정하지도 않는다.",
+      "method": "AUTHORED_EVIDENCE_GAP_REVIEW", "sources": []
+    },
+    "E6/c1": {
+      "category": "ARITHMETIC_ERROR",
+      "evidence": "출력 자체 산식80×2+110×6+140=960으로310이 아니다. 원입력의1~9월 순유출915 및12월~9월995는 기간부터 다르다.",
+      "method": "EXECUTED_ARITHMETIC_AND_PERIOD_REVIEW", "sources": []
+    },
+    "E6/c2": {
+      "category": "PERIOD_AND_RECOMMENDATION_SCOPE",
+      "evidence": "원입력의9월말405로 그때까지 현금충당이 가능하다는 제한된 사실은 맞다. 합격 후 즉시 취업과60개월 전략 우월성의 입증 여부는 별개다.",
+      "method": "EXECUTED_ORIGINAL_INPUTS_AND_CONTEXT", "sources": []
+    },
+    "E6/c3": {
+      "category": "UNVERIFIED_WAGE_AND_PROBABILITY",
+      "evidence": "월450·350과 공부시간에 따른 개인 합격확률 변화는 원입력이나 확정 계약으로 입증되지 않은 추가 가정이다.",
+      "method": "AUTHORED_INPUT_COMPARISON", "sources": []
+    },
+    "E7/c1": {
+      "category": "CONDITIONAL_INCOME_ASSUMPTION",
+      "evidence": "월80은 원입력의 근로병행 가정이다. 출력은 수습 미지정기에도 계속 일한다고 추가 가정한다. 계약·시간·지급일이 확인된 소득은 아니다.",
+      "method": "AUTHORED_INPUT_COMPARISON", "sources": []
+    },
+    "E7/c2": {
+      "category": "CONDITIONAL_ARITHMETIC_ERROR",
+      "evidence": "월80만원 해석이면530−(120+5−80)×4=350으로860+360=1220과 다르다. 원문의80,000/80,0000 표기는 해소되지 않았으므로 계산 조건을 명시한다.",
+      "method": "EXECUTED_CONDITIONAL_INTERPRETATION", "sources": []
+    },
+    "E8/c1": {
+      "category": "ARITHMETIC_ERROR",
+      "evidence": "420+560+375=1355로1295가 아니다.1400+360−1355=405이며465는60 과대다.",
+      "method": "EXECUTED_ARITHMETIC", "sources": []
+    },
+    "E8/c2": {
+      "category": "SUM_MATCH_WITH_UNSUPPORTED_INPUTS",
+      "evidence": "표 항목1000+465+13320−1600+1540=14725 자체는 맞다. 임금·투자수익1540·적립시점·상환은 입증되지 않았다.2026.12~2031.12는 양끝 포함61개월로 요청60개월과 다르다.",
+      "method": "EXECUTED_SUM_AND_MONTH_COUNT_WITH_CONTEXT", "sources": []
+    },
+    "E8/c3": {
+      "category": "UNSUPPORTED_RECOMMENDATION",
+      "evidence": "합격·고용·임금·투자수익을 가정한 출력으로 동일 조건의 네 전략 비교나 확실한 투자라는 결론을 입증할 수 없다.",
+      "method": "AUTHORED_EVIDENCE_GAP_REVIEW", "sources": []
+    }
+  },
+  "supplementary_findings": [
+    {
+      "id": "E3/unselected_prose_subtotal",
+      "scope": "OUTSIDE_23_SELECTED_CLAIMS",
+      "evidence": "원출력 중140×7을1000으로 쓴 문장은980이어야 한다. 같은 출력의 상세420+560=980, 총지출1355·9월잔액405는 맞다. 선정23개 수나 오류 건수를 이 발견 때문에 늘리지 않는다."
+    }
+  ]
+}
