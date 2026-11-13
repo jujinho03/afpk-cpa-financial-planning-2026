@@ -9,6 +9,7 @@
 | 3 | [알려진 모형 한계](decisions/KNOWN_LIMITATIONS.md) | 모형이 다루지 않는 것과 그 처리 방식은 무엇인가 |
 | 4 | [공식 출처와 원본 해시](references/README.md) | 공식 통계·제도 근거는 어디서 왔는가 |
 | 5 | [프로젝트 기획서](bible/AFPK_CPA_아이디어_기획서.md) ([PDF](bible/AFPK_CPA_아이디어_기획서.pdf)) | 문제 정의와 재무설계 6단계의 전체 설계 |
+| 6 | [제출 자료와 Git 관리 방법](SUBMISSION_WORKFLOW.md) | 준비팩·점검 보고·실제 제출 파일의 역할과 Git 동기화 범위 |
 
 ## 폴더별 역할
 
