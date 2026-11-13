@@ -69,5 +69,5 @@
 <line x1="48" y1="557" x2="1232" y2="557" stroke="#DFE7ED" stroke-width="1"/>
 <text x="48" y="591" font-size="17" fill="#22384B" font-weight="700" text-anchor="start">A/U 안전자금 하한 위반: 2027.10 · 미충당액 발생: 2028.01. 두 사건은 서로 다릅니다.</text>
 <text x="48" y="623" font-size="16" fill="#637487" font-weight="400" text-anchor="start">가상 고객·고정 소득경로의 월말 계산입니다. 실제 채용·급여를 보장하지 않으며 월중 지급일까지 검증한 결과는 아닙니다.</text>
-<text x="48" y="653" font-size="14" fill="#637487" font-weight="400" text-anchor="start">출처: outputs/tables/monthly_cashflows.csv · 기본 가정: docs/assumptions/BASELINE.md</text>
+<text x="48" y="653" font-size="14" fill="#637487" font-weight="400" text-anchor="start">자료: 저자 계산(참조 모형, 가상 가정)</text>
 </svg>

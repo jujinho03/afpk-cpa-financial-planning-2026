@@ -41,3 +41,11 @@ Thumbs.db
 .vscode/
 reports/submission/*
 !reports/submission/README.md
+# Private contest manuscripts and local uploads (never publish; submission pledge item 6)
+/AFPK_CPA_PRIV_2026/
+/*_PRIV_*/
+/자료/
+/AFPK_CPA_v4_*.zip
+/AFPK_CPA_LLM_초기_마스터프롬프트.md
+/AFPK_CPA_아이디어_기획서.md
+/AFPK_CPA_아이디어_기획서.pdf
