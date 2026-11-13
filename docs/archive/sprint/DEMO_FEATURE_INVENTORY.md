@@ -2,11 +2,11 @@
 
 기준일: 2026-11-12 KST. 인수 원본: 설경민, `import/afpk-demo` / `bd5a62518f07f4f738a1c1ec69d4c697d7345ccb`.
 
-소스 업로드 대기 상태를 종료하고 실제 코드를 조사했습니다. 아래 `SOURCE_CHECKED`는 소스 구현 확인이며 실행 검증 완료를 뜻하지 않습니다. 설치·빌드·API·브라우저의 최신 결과는 [인수 보고](../demo/DEMO_INTAKE_REPORT.md)에 기록합니다.
+소스 업로드 대기 상태를 종료하고 실제 코드를 조사했습니다. 아래 `SOURCE_CHECKED`는 소스 구현 확인이며 실행 검증 완료를 뜻하지 않습니다. 설치·빌드·API·브라우저의 최신 결과는 [인수 보고](../../demo/DEMO_INTAKE_REPORT.md)에 기록합니다.
 
 ## 페이지와 구현 근거
 
-라우터: [cpa.tsx](../../apps/demo/frontend/src/app/router/cpa.tsx). 프런트는 React 18·TypeScript·Vite, 서버는 Rust·Axum·Tokio·SQLx/SQLite입니다.
+라우터: [cpa.tsx](../../../apps/demo/frontend/src/app/router/cpa.tsx). 프런트는 React 18·TypeScript·Vite, 서버는 Rust·Axum·Tokio·SQLx/SQLite입니다.
 
 | 경로 | 확인한 구현 | 주요 근거 | 남은 확인 / 책임 |
 |---|---|---|---|
@@ -36,7 +36,7 @@
 | DEMO-09 | AI 원출력 증거 | `IMPORTED_UNREVIEWED` | E1~E8 8개 run·23개 주장 인수. AI 1차 의견과 인간 최종 판정 구분 |
 | DEMO-10 | 보고서 | `SOURCE_CHECKED` | 입력·Rust·템플릿·검증 상태 조립, 브라우저 인쇄. 최종 DOCX/HWP 미작성 |
 | DEMO-11 | 저장·환경 | `SOURCE_CHECKED` | SQLite·localStorage·환경변수, 값은 `.env`에만. 실제 비밀값을 올리지 않음 |
-| DEMO-12 | 실행·테스트 | `RUNTIME_CHECK` | [인수 보고](../demo/DEMO_INTAKE_REPORT.md)의 실제 명령·결과 참조 |
+| DEMO-12 | 실행·테스트 | `RUNTIME_CHECK` | [인수 보고](../../demo/DEMO_INTAKE_REPORT.md)의 실제 명령·결과 참조 |
 
 ## 기존 자산을 활용하는 작업 분류
 
@@ -45,4 +45,4 @@
 - **별도 결정:** 두 모형의 단일화나 Python 어댑터. 수치 하드코딩으로 정렬하지 않으며 금융 변경 승인 전 구현하지 않음.
 - **후순위:** 선택 UI·영상·추가 AI 기능. P0 본문과 실제 검증을 지연시키면 제외.
 
-상세 계산 차이는 [바이블 차이 분석](../demo/DEMO_BIBLE_GAP_ANALYSIS.md)을, 작업 담당·난이도·대체안은 [우선순위](DEVELOPMENT_PRIORITIES.md)를 참조합니다.
+상세 계산 차이는 [바이블 차이 분석](../../demo/DEMO_BIBLE_GAP_ANALYSIS.md)을, 작업 담당·난이도·대체안은 [우선순위](DEVELOPMENT_PRIORITIES.md)를 참조합니다.

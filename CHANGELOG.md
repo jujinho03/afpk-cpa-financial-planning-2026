@@ -1,5 +1,12 @@
 # 변경 기록
 
+## 0.4.0 — 2026-11-13
+- 문서 인용용 민감도 결과를 `outputs/tables/sensitivity.json`으로 내보냄(#10).
+- B·D 시간제 첫 급여 미수령 단기 스트레스 `parttime_first_pay_delay` 추가. v4 공식 불변(#12, M03 처리 갱신).
+- 제출용 그림 문구를 중립화하고 내부 파일 경로를 제거. 비공개 원고 폴더를 ignore(#11).
+- 심사위원 가독성을 위한 저장소 정리: README에 저장소 지도와 확정 권고(조건부 B 우선), `docs/README.md` 문서 지도 추가, 지난 일정·초기 설정 기록을 `docs/archive/`로 이동, 내용 없는 `src/afpk_cpa/evaluation`·`scenarios` 자리표시 제거.
+- 금융 수식·기본 가정·`model_summary.json`·`monthly_cashflows.csv` 변경 없음.
+
 ## 0.3.0 — 2026-11-12
 - 설경민의 `bd5a625` 데모 커밋과 원본 README·242파일 해시를 보존하며 React 8개 화면·Rust API를 인수.
 - ignore 규칙으로 빠진 필수 프롬프트 3개를 통합 작성본으로 복구하고 서버를 loopback에 한정.
