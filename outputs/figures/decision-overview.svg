@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 514" width="1280" height="514" role="img" aria-labelledby="title desc" style="max-width:100%;height:auto">
-<title id="title">합격해도 끝나지 않는다 — 분석의 세 단계</title>
-<desc id="desc">가상 고객의 18개월 유동성, 60개월 조건부 현금흐름, 재현 가능한 근거를 연결한 프로젝트 개요.</desc>
-<style>text{font-family:"Noto Sans KR","Malgun Gothic",Arial,sans-serif}.number{font-family:Arial,"Malgun Gothic",sans-serif;font-variant-numeric:tabular-nums}</style>
-<rect x="0" y="0" width="1280" height="514" rx="20" fill="#142638"/>
-<text x="48" y="48" font-size="15" fill="#9BC6CF" font-weight="700" text-anchor="start">AFPK YOUNG PLANNER CHALLENGE 2026</text>
-<text x="48" y="112" font-size="43" fill="#FFFFFF" font-weight="700" text-anchor="start">합격해도 끝나지 않는다</text>
-<text x="48" y="154" font-size="22" fill="#D5E2EC" font-weight="400" text-anchor="start">CPA 2차 유예생의 합격·수습·첫 급여 사이, 소득 공백을 견디는 재무설계</text>
-<rect x="48" y="183" width="1184" height="1" rx="0" fill="#355064"/>
-<rect x="48" y="212" width="376" height="218" rx="12" fill="#20394D"/>
-<text x="70" y="247" font-size="16" fill="#74CBC3" font-weight="700" text-anchor="start" class="number">01</text>
-<text x="70" y="283" font-size="25" fill="#FFFFFF" font-weight="700" text-anchor="start">18개월 지급능력</text>
-<text x="70" y="319" font-size="17" fill="#C4D5E2" font-weight="400" text-anchor="start">현금이 버티는가?</text>
-<text x="70" y="365" font-size="19" fill="#74CBC3" font-weight="700" text-anchor="start">A/U 안전자금 이탈 2027.10</text>
-<text x="70" y="399" font-size="16" fill="#C4D5E2" font-weight="400" text-anchor="start">미충당액 발생 2028.01</text>
-<rect x="452" y="212" width="376" height="218" rx="12" fill="#20394D"/>
-<text x="474" y="247" font-size="16" fill="#9FBDE4" font-weight="700" text-anchor="start" class="number">02</text>
-<text x="474" y="283" font-size="25" fill="#FFFFFF" font-weight="700" text-anchor="start">60개월 조건부 비교</text>
-<text x="474" y="319" font-size="17" fill="#C4D5E2" font-weight="400" text-anchor="start">어떤 경로가 유리한가?</text>
-<text x="474" y="365" font-size="19" fill="#9FBDE4" font-weight="700" text-anchor="start">C 6,717만 원 · B 6,062만 원</text>
-<text x="474" y="399" font-size="16" fill="#C4D5E2" font-weight="400" text-anchor="start">같은 기간·할인율의 현금흐름 현가</text>
-<rect x="856" y="212" width="376" height="218" rx="12" fill="#20394D"/>
-<text x="878" y="247" font-size="16" fill="#E2BD7E" font-weight="700" text-anchor="start" class="number">03</text>
-<text x="878" y="283" font-size="25" fill="#FFFFFF" font-weight="700" text-anchor="start">재현 가능한 근거</text>
-<text x="878" y="319" font-size="17" fill="#C4D5E2" font-weight="400" text-anchor="start">결과를 다시 확인할 수 있는가?</text>
-<text x="878" y="365" font-size="19" fill="#E2BD7E" font-weight="700" text-anchor="start">12개 경로 · 720개 월별 행</text>
-<text x="878" y="399" font-size="16" fill="#C4D5E2" font-weight="400" text-anchor="start">가정 원장 → 코드 → 표 → 회귀검증</text>
-<text x="48" y="474" font-size="17" fill="#B5C7D7" font-weight="400" text-anchor="start">가상 고객·가정값 기반 계산  |  개인 합격확률 예측이나 확정 수익이 아닙니다.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 560" width="1280" height="560" role="img" aria-labelledby="title desc" style="max-width:100%;height:auto">
+<title id="title">합격해도 끝나지 않는다 — 핵심 결과 요약</title>
+<desc id="desc">가상 고객의 18개월 유동성 검사, 60개월 조건부 장기 지표, 재현 근거를 한 장에 요약한다. A/U는 2027.10에 안전자금 하한을 밑돌고 2028.01에 미충당이 생긴다. 60개월 지표는 C 6,716.7만 원, B 6,062.2만 원이다.</desc>
+<style>text{font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif}.number{font-family:Arial,"Malgun Gothic",sans-serif;font-variant-numeric:tabular-nums}</style>
+<rect x="0" y="0" width="1280" height="560" rx="0" fill="#FFFFFF"/>
+<text x="56" y="52" font-size="14" fill="#6E6E6E" font-weight="700" text-anchor="start">AFPK YOUNG PLANNER CHALLENGE 2026  ·  B안 가상 고객 사례</text>
+<text x="56" y="112" font-size="44" fill="#111111" font-weight="700" text-anchor="start">합격해도 끝나지 않는다</text>
+<text x="56" y="152" font-size="20" fill="#2B2B2B" font-weight="400" text-anchor="start">CPA 2차 유예생의 합격·수습·첫 급여 사이, 소득 공백을 견디는 재무설계</text>
+<line x1="56" y1="182" x2="1224" y2="182" stroke="#111111" stroke-width="3"/>
+<text x="56" y="222" font-size="15" fill="#6E6E6E" font-weight="700" text-anchor="start">결론</text>
+<text x="108" y="222" font-size="19" fill="#111111" font-weight="700" text-anchor="start">안전자금을 지키는 대안 중, 응시기회 보존을 원하는 고객에게는 B(근로 병행)를 조건부로 우선 검토한다.</text>
+<line x1="56" y1="262" x2="328" y2="262" stroke="#111111" stroke-width="3"/>
+<text x="56" y="292" font-size="14" fill="#6E6E6E" font-weight="700" text-anchor="start">단기 유동성 · 18개월</text>
+<text x="56" y="320" font-size="17" fill="#2B2B2B" font-weight="700" text-anchor="start">A 전업 수험</text>
+<text x="56" y="374" font-size="34" fill="#111111" font-weight="700" text-anchor="start" class="number">2027.10</text>
+<text x="56" y="408" font-size="15" fill="#2B2B2B" font-weight="400" text-anchor="start">안전자금 하한 최초 위반</text>
+<text x="56" y="434" font-size="14" fill="#6E6E6E" font-weight="400" text-anchor="start">미충당 발생 2028.01 · 두 사건은 다름</text>
+<line x1="352" y1="262" x2="624" y2="262" stroke="#1F4E79" stroke-width="3"/>
+<text x="352" y="292" font-size="14" fill="#6E6E6E" font-weight="700" text-anchor="start">하한 여유 · 18개월</text>
+<text x="352" y="320" font-size="17" fill="#2B2B2B" font-weight="700" text-anchor="start">B 근로 병행</text>
+<text x="352" y="374" font-size="34" fill="#1F4E79" font-weight="700" text-anchor="start" class="number">445만 원</text>
+<text x="352" y="408" font-size="15" fill="#2B2B2B" font-weight="400" text-anchor="start">모든 결과 경로의 최소 여유</text>
+<text x="352" y="434" font-size="14" fill="#6E6E6E" font-weight="400" text-anchor="start">D는 45만 원으로 얇음</text>
+<line x1="648" y1="262" x2="920" y2="262" stroke="#111111" stroke-width="3"/>
+<text x="648" y="292" font-size="14" fill="#6E6E6E" font-weight="700" text-anchor="start">장기 지표 · 60개월</text>
+<text x="648" y="320" font-size="17" fill="#2B2B2B" font-weight="700" text-anchor="start">C 취업 전환 vs B</text>
+<text x="648" y="374" font-size="34" fill="#111111" font-weight="700" text-anchor="start" class="number">654.5만 원</text>
+<text x="648" y="408" font-size="15" fill="#2B2B2B" font-weight="400" text-anchor="start">C 6,716.7 − B 6,062.2</text>
+<text x="648" y="434" font-size="14" fill="#6E6E6E" font-weight="400" text-anchor="start">첫 급여 일정에 의존하는 차이</text>
+<line x1="944" y1="262" x2="1216" y2="262" stroke="#111111" stroke-width="3"/>
+<text x="944" y="292" font-size="14" fill="#6E6E6E" font-weight="700" text-anchor="start">재현 근거</text>
+<text x="944" y="320" font-size="17" fill="#2B2B2B" font-weight="700" text-anchor="start">참조 모형 v4</text>
+<text x="944" y="374" font-size="34" fill="#111111" font-weight="700" text-anchor="start" class="number">12경로 · 720행</text>
+<text x="944" y="408" font-size="15" fill="#2B2B2B" font-weight="400" text-anchor="start">월별 계산 결과</text>
+<text x="944" y="434" font-size="14" fill="#6E6E6E" font-weight="400" text-anchor="start">가정 원장 → 코드 → 표 → 테스트</text>
+<line x1="56" y1="476" x2="1224" y2="476" stroke="#D6D6D6" stroke-width="1"/>
+<text x="56" y="506" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">가상 고객·가정값 기반 계산입니다. 개인 합격확률 예측이나 확정 수익이 아닙니다.</text>
+<text x="56" y="534" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">자료: outputs/tables (참조 모형 Python v4, 가상 가정으로 저자 계산)</text>
 </svg>
