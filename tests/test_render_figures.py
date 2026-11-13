@@ -44,8 +44,22 @@ class JudgeFigureTests(unittest.TestCase):
         self.assertIn("A -555", content)
         self.assertIn("0 미만 = 미충당액", content)
         value = FIGURES.financial_value(summary)
-        for number in ["6,717", "6,062", "5,853", "5,259"]:
+        for number in ["6,716.7", "6,062.2", "5,853.5", "5,259.2", "654.5"]:
             self.assertIn(number, value)
+
+    def test_action_titles_and_sources_come_from_exports(self):
+        summary, rows, paths = FIGURES.load_exports(ROOT / "outputs/tables")
+        liquidity = FIGURES.liquidity(paths, summary)
+        self.assertIn("A는 2027.10에 안전자금 하한을 밑돌고, 2028.01부터 미충당이 생긴다", liquidity)
+        self.assertIn("하한 420 → 375 → 360(만원)", liquidity)
+        overview = FIGURES.overview(summary, rows)
+        self.assertIn("445만 원", overview)
+        self.assertIn("12경로 · 720행", overview)
+        value = FIGURES.financial_value(summary)
+        for content in (liquidity, overview, value):
+            self.assertIn("자료: outputs/tables", content)
+        for content in (liquidity, value):
+            self.assertIn("단위: 만원", content)
 
 
 if __name__ == "__main__":
