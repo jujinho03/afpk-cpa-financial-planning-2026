@@ -38,5 +38,5 @@
 <text x="1000" y="432" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">안전자금 하한 위반 · 제외</text>
 <line x1="56" y1="506" x2="1224" y2="506" stroke="#D6D6D6" stroke-width="1"/>
 <text x="56" y="536" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">가정: p=0.60, q=0.70, B의 Δp=10%p, 연 할인율 5% (예시 가중치, 개인 확률 아님)</text>
-<text x="56" y="564" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">순자산·확정 수익이 아니며, 응시기회의 비금전적 가치는 포함하지 않습니다. 자료: outputs/tables (참조 모형 Python v4, 가상 가정으로 저자 계산)</text>
+<text x="56" y="564" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">순자산·확정 수익이 아니며, 응시기회의 비금전적 가치는 포함하지 않습니다. 자료: 저자 계산(참조 모형 Python v4, 가상 가정)</text>
 </svg>
