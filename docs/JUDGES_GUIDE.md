@@ -53,7 +53,7 @@
 | 계산 재현 가능 | [JSON](../outputs/tables/model_summary.json), [720행 CSV](../outputs/tables/monthly_cashflows.csv), [코드](../src/afpk_cpa/financial/model_v4.py), [테스트](../tests/) | 현실 타당성과는 별도 |
 | 가정과 공식 자료 구분 | [가정 원장](assumptions/BASELINE.md), [출처](references/README.md) | 실제 임금·채용기간·ICL 의무 검증 |
 | 코드·본문 불일치 공개 | [알려진 한계](decisions/KNOWN_LIMITATIONS.md) | 날짜 정규화·입력 검증·생성기 통합 |
-| AI 원출력 비판적 검증 | [제공된 8건·23개 주장](../ai_evidence/README.md) | 이번에 재호출하지 않음, 인간 최종 판정·권고 수정 대기 |
+| AI 원출력 비판적 검증 | [제공된 8건·23개 주장](../ai_evidence/README.md) | 이번에 재호출하지 않음. 팀의 최종 금융 판정과 권고 반영 기록은 공식 참가작(부록)에 있으며 이 저장소에는 두지 않습니다 |
 | 기존 데모와 금융 계산 연결 | [인수 보고](demo/DEMO_INTAKE_REPORT.md), [모형 차이](demo/DEMO_BIBLE_GAP_ANALYSIS.md) | Rust 확장 모형과 Python v4를 구분, 동일 결과를 보장하는 포트 아님 |
 
 ## 웹 데모와 참조 모형의 관계

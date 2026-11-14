@@ -14,7 +14,7 @@ CPA 2차 유예생의 소득 공백을 **18개월 유동성 → 60개월 조건�
 
 **[심사위원용 3분 안내](docs/JUDGES_GUIDE.md) · [분석 결과 JSON](outputs/tables/model_summary.json) · [프로젝트 기획서 PDF](docs/bible/AFPK_CPA_아이디어_기획서.pdf) · [재현·기여 안내](CONTRIBUTING.md)**
 
-> AFPK 영 플래너 챌린지 2026 · B안 가상 고객 사례. 현재 공개본은 **계산을 재현할 수 있는 연구·협업 저장소**입니다. 기존 Rust 데모와 제공된 AI 원출력 8건을 인수했습니다. 두 금융 모형의 가정이 다르며, AI 기록의 인간 최종 판정은 대기 중입니다. 이 저장소는 공식 DOCX/HWP 참가작을 대체하지 않습니다.
+> AFPK 영 플래너 챌린지 2026 · B안 가상 고객 사례. 현재 공개본은 **계산을 재현할 수 있는 연구·협업 저장소**입니다. 기존 Rust 데모와 제공된 AI 원출력 8건을 인수했습니다. 두 금융 모형의 가정이 다릅니다. 팀의 최종 금융 판정과 권고 반영 기록은 공식 참가작(부록)에 있으며 이 저장소에는 두지 않습니다. 이 저장소는 공식 DOCX/HWP 참가작을 대체하지 않습니다.
 
 ## Executive Summary
 
@@ -76,9 +76,9 @@ CPA 2차 유예생의 소득 공백을 **18개월 유동성 → 60개월 조건�
 
 AI는 정보 누락·실패 시나리오·권고의 반례·고객 설명을 제안하고, 인간은 공식 자료와 독립 계산으로 판단합니다. 목표는 **AI 원출력 → 근거 대조 → 재계산 → 고객 권고 변경**을 추적하는 것입니다.
 
-| 현재 확보한 것 | 아직 확보하지 않은 것 |
+| 이 저장소에서 확인할 수 있는 것 | 이 저장소에 없거나 검증 범위 밖인 것 |
 |---|---|
-| Python v4의 12개 경로·720행 계산 결과와 회귀·경계조건 테스트 | 인수한 AI 원출력의 인간 최종 판정·권고 수정 이력 |
+| Python v4의 12개 경로·720행 계산 결과와 회귀·경계조건 테스트 | 팀의 최종 금융 판정과 권고 반영 기록은 공식 참가작(부록)에 있으며 이 저장소에는 두지 않습니다 |
 | 선정 AI 주장23개의 [독립 계산·근거 대조](ai_evidence/CLAIM_AUDIT.md)와 재현 코드 | 해당 코드 실행을 사람의 승인이나 제공자 호출 증명으로 대체할 수 없음 |
 | 원본 파일 해시, 가정 원장, 알려진 결함, E1~E8 제공 원출력 8건·23개 주장 | 제공자 측 과거 호출의 독립 입증, 법정 ICL·급여·채용기간의 현실성 검증 |
 | 기존 React/Rust 데모 소스와 원본 커밋, 실행·빌드용 CI | 외부 LLM 재호출·유료 기능·외부 배포는 이번 검증 범위 밖 |
@@ -87,7 +87,7 @@ AI는 정보 누락·실패 시나리오·권고의 반례·고객 설명을 제
 
 ## 5. 기존 웹 데모 — 별도 Rust 확장 모형
 
-설경민이 작성한 React·TypeScript·Vite 프런트엔드와 Rust·Axum·SQLite 백엔드를 원본 커밋 [`bd5a625`](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/commit/bd5a62518f07f4f738a1c1ec69d4c697d7345ccb)의 이력을 보존해 인수했습니다.
+팀의 AI 담당이 작성한 React·TypeScript·Vite 프런트엔드와 Rust·Axum·SQLite 백엔드를 원본 커밋 [`bd5a625`](https://github.com/jujinho03/afpk-cpa-financial-planning-2026/commit/bd5a62518f07f4f738a1c1ec69d4c697d7345ccb)의 이력을 보존해 인수했습니다.
 
 **데모는 별도 Rust 확장 모형입니다.** 위의 Python v4 차트와 임금·급여월·안전자금·할인 정의가 다릅니다. 동일 조건의 독립 검산이나 동일 숫자를 보장하는 화면으로 해석하지 않습니다. [두 모형 비교](docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md)
 
@@ -151,17 +151,19 @@ python scripts/check_repository.py
 | [`ai_evidence/`](ai_evidence/README.md) | AI 실험 원출력의 출처·상태·번호 대응 | [증거 구조](ai_evidence/README.md) |
 | [`apps/demo/`](apps/demo/README.md) | 기존 React·Rust 웹 데모(별도 확장 모형) | [데모 실행 안내](apps/demo/README.md), [두 모형 차이](docs/demo/DEMO_BIBLE_GAP_ANALYSIS.md) |
 | `vendor/v4/` | 처음 받은 v4 원본(SHA-256 고정, 수정 금지) | [원본 설명](vendor/v4/README.txt) |
-| `reports/` | 원고 위치 안내만 둠. 참가작 원고는 제출 규정에 따라 공개하지 않음 | [안내](reports/drafts/README.md) |
+| `reports/` | 원고 위치 안내만 둠. 최종 참가작(본문+부록 통합본)과 서명 서류는 이 저장소에 올리지 않음 | [안내](reports/drafts/README.md) |
 | `.github/` | CI(Python·Rust·프런트 검사), Issue·PR 양식 | [CI 설정](.github/workflows/ci.yml) |
 
 협업 규칙은 [AGENTS.md](AGENTS.md)와 [기여 안내](CONTRIBUTING.md), 변경 이력은 [CHANGELOG](CHANGELOG.md)에 있습니다.
 
 ## 8. 팀과 제출 기준
 
-| 담당 | 책임 |
+3인 팀이며, 블라인드 심사를 위해 이 문서에는 역할만 적습니다.
+
+| 역할 | 책임 |
 |---|---|
-| [주진호 · jujinho03](https://github.com/jujinho03) | 팀장·데이터사이언티스트 / 고객 가정·재무분석·본문·최종 권고 |
-| [설경민 · k0ng-min](https://github.com/k0ng-min) | AI 전문가·테크 리더 / 기존 데모·AI 검증·기술서 |
-| [박동찬 · feeljis131](https://github.com/feeljis131) | 풀스택 / 데모 통합·환경·테스트·CI·문서 빌드 |
+| 팀장 · 재무분석 | 고객 가정·재무분석·본문·최종 권고 |
+| AI 담당 | 기존 데모·AI 검증·기술서 |
+| 통합 담당 | 데모 통합·환경·테스트·CI·문서 빌드 |
 
 **제출 기준:** 2026-11-16 23:59 KST. 공식 참가작은 재무설계 본문+AI 기술서 DOCX/HWP 1개이며, 서명 확인서는 별도입니다. 공개 저장소와 제출용 익명 참가작은 구분합니다. [공개 범위·검토 기록](docs/decisions/PUBLIC_RELEASE.md)

@@ -1,7 +1,7 @@
 # DESIGN_REFERENCES — "Mist" 디자인 시스템 (현재)
 
 ## 1. 기준 레퍼런스
-- **Wirely — My Portfolio 대시보드 스크린샷** (사용자 제공 이미지, 사용자 PC `Pictures\Screenshots\스크린샷 2026-11-09 185807.png`).
+- **Wirely — My Portfolio 대시보드 스크린샷** (제공된 디자인 참고 이미지).
   저작권이 있는 디자인이므로 프로젝트에 복사하지 않았고, 로고·브랜드·사진·인물 이미지를 사용하지 않았다.
 - 원본 검색: Dribbble·Behance(웹 검색)에서 "Wirely My Portfolio"를 찾지 못했다. 유사 사례(Portfolio Management Dashboard – Light Mode, WealthWise 등)는 검색 결과 목록만 확인했고 디자인에 반영하지 않았다.
 
