@@ -57,7 +57,8 @@ class JudgeFigureTests(unittest.TestCase):
         self.assertIn("12경로 · 720행", overview)
         value = FIGURES.financial_value(summary)
         for content in (liquidity, overview, value):
-            self.assertIn("자료: outputs/tables", content)
+            self.assertIn("자료: 저자 계산(참조 모형 Python v4, 가상 가정)", content)
+            self.assertNotIn("outputs/tables", content)
         for content in (liquidity, value):
             self.assertIn("단위: 만원", content)
 

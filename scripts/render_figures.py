@@ -28,7 +28,7 @@ ACCENT = "#1F4E79"   # single point colour: strategy B only
 COLORS = {"A": INK, "B": ACCENT, "C": GRAY, "D": GRAY}
 DASHES = {"A": None, "B": None, "C": None, "D": "10 6"}
 LABELS = {"A": "A · 전업 수험", "B": "B · 근로 병행", "C": "C · 취업 전환", "D": "D · 조건부 전환"}
-SOURCE = "자료: outputs/tables (참조 모형 Python v4, 가상 가정으로 저자 계산)"
+SOURCE = "자료: 저자 계산(참조 모형 Python v4, 가상 가정)"
 
 
 def n(value: float) -> str:

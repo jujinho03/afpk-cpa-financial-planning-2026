@@ -70,5 +70,5 @@
 <line x1="56" y1="590" x2="1224" y2="590" stroke="#D6D6D6" stroke-width="1"/>
 <text x="56" y="620" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">A/U 안전자금 하한 위반 2027.10 · 미충당액 발생 2028.01. 두 사건은 서로 다릅니다. 하한 420 → 375 → 360(만원).</text>
 <text x="56" y="648" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">가상 고객·고정 소득경로의 월말 계산입니다. 실제 채용·급여를 보장하지 않으며 월중 지급일까지 검증한 결과는 아닙니다.</text>
-<text x="56" y="676" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">자료: outputs/tables (참조 모형 Python v4, 가상 가정으로 저자 계산)</text>
+<text x="56" y="676" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">자료: 저자 계산(참조 모형 Python v4, 가상 가정)</text>
 </svg>

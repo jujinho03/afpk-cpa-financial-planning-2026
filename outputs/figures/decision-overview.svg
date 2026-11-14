@@ -36,5 +36,5 @@
 <text x="944" y="434" font-size="14" fill="#6E6E6E" font-weight="400" text-anchor="start">가정 원장 → 코드 → 표 → 테스트</text>
 <line x1="56" y1="476" x2="1224" y2="476" stroke="#D6D6D6" stroke-width="1"/>
 <text x="56" y="506" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">가상 고객·가정값 기반 계산입니다. 개인 합격확률 예측이나 확정 수익이 아닙니다.</text>
-<text x="56" y="534" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">자료: outputs/tables (참조 모형 Python v4, 가상 가정으로 저자 계산)</text>
+<text x="56" y="534" font-size="15" fill="#6E6E6E" font-weight="400" text-anchor="start">자료: 저자 계산(참조 모형 Python v4, 가상 가정)</text>
 </svg>
